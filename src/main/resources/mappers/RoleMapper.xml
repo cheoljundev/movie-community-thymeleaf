@@ -1,0 +1,10 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hello.moviecomm.repository.RoleMapper">
+    <select id="findByMemberNo" resultType="Role">
+        SELECT
+            member_no,
+            authority_code
+        FROM member_role
+        WHERE member_no = #{memberNo}
+    </select>
+</mapper>

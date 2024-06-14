@@ -1,5 +1,6 @@
 package hello.moviecomm.domain.member;
 
+import hello.moviecomm.domain.authority.Authority;
 import lombok.Builder;
 import lombok.Data;
 

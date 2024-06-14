@@ -1,8 +1,8 @@
 package hello.moviecomm.repository;
 
-import hello.moviecomm.domain.member.Authority;
+import hello.moviecomm.domain.authority.Authority;
 import hello.moviecomm.domain.member.Member;
-import hello.moviecomm.domain.member.Role;
+import hello.moviecomm.domain.role.Role;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -10,11 +10,9 @@ import java.util.List;
 public interface MemberMapper {
     void save(Member member);
 
-    Member findById(String memberId);
+    Member findMemberById(String memberId);
 
-    List<Member> findAll();
-
-    List<Role> findRolesByNo(Integer memberNo);
+    List<Member> findMemberAll();
 
     Authority findAuthorityByCode(Integer authorityCode);
 

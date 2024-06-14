@@ -1,11 +1,8 @@
 package hello.moviecomm.repository;
 
-import hello.moviecomm.domain.member.Authority;
+import hello.moviecomm.domain.authority.Authority;
 import hello.moviecomm.domain.member.Member;
-import hello.moviecomm.domain.member.Role;
-import hello.moviecomm.repository.MemberMapper;
-import hello.moviecomm.repository.MemberRepository;
-import org.junit.jupiter.api.DisplayName;
+import hello.moviecomm.domain.role.Role;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,14 +18,8 @@ class MemberMapperTest {
     private MemberMapper memberMapper;
     @Test
     void findById() {
-        Member member = memberMapper.findById("user01");
+        Member member = memberMapper.findMemberById("user01");
         assertThat(member.getName()).isEqualTo("홍길동");
-    }
-
-    @Test
-    void  findRolesByNo() {
-        List<Role> roles = memberMapper.findRolesByNo(2);
-        assertThat(roles.size()).isEqualTo(2);
     }
 
     @Test
