@@ -1,8 +1,6 @@
 package hello.moviecomm.repository;
 
-import hello.moviecomm.domain.authority.Authority;
 import hello.moviecomm.domain.member.Member;
-import hello.moviecomm.domain.role.Role;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,19 +18,37 @@ class MemberMapperTest {
     private MemberMapper memberMapper;
     @Test
     void findById() {
-        Member member = memberMapper.findMemberById("user01");
-        assertThat(member.getName()).isEqualTo("홍길동");
+        Member member = Member.builder()
+                .memberId("user01")
+                .name("김철수")
+                .password("1234")
+                .build();
+        memberMapper.save(member);
+        Member findMember = memberMapper.findById("user01");
+        assertThat(findMember.getMemberId()).isEqualTo(member.getMemberId());
     }
 
     @Test
     void save() {
         Member member = Member.builder()
-                .memberId("user02")
+                .memberId("user01")
                 .name("김철수")
                 .password("1234")
                 .build();
         memberMapper.save(member);
-        assertThat(memberMapper.findMemberById("user02").getName()).isEqualTo("김철수");
+        assertThat(memberMapper.findById("user01").getName()).isEqualTo("김철수");
+    }
+
+    @Test
+    void saveRole() {
+        Member member = Member.builder()
+                .memberId("user01")
+                .name("김철수")
+                .password("1234")
+                .build();
+        memberMapper.save(member);
+        Integer memberNo = memberMapper.findById("user01").getMemberNo();
+        memberMapper.saveRole(memberNo, 1);
     }
 
     @Test
