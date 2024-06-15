@@ -1,6 +1,6 @@
-package hello.moviecomm.repository;
+package hello.moviecomm.member.repository;
 
-import hello.moviecomm.domain.authority.Authority;
+import hello.moviecomm.member.domain.Authority;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

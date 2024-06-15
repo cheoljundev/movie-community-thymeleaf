@@ -1,18 +1,18 @@
-package hello.moviecomm.repository;
+package hello.moviecomm.member.repository;
 
-import hello.moviecomm.domain.member.Member;
+import hello.moviecomm.member.dto.MemberDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 @Mapper
 public interface MemberMapper {
-    void save(Member member);
+    void save(MemberDto memberDto);
 
     void saveRole(@Param("memberNo") Integer memberNo, @Param("authorityCode") Integer authorityCode);
 
-    Member findById(String memberId);
+    MemberDto findById(String memberId);
 
-    List<Member> findAll();
+    List<MemberDto> findAll();
 
 }

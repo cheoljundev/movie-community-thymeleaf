@@ -1,7 +1,7 @@
 <!--mybatis mapper meta data  setting-->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="hello.moviecomm.repository.MemberMapper">
-    <select id="findById" resultType="Member">
+<mapper namespace="hello.moviecomm.member.repository.MemberMapper">
+    <select id="findById" resultType="hello.moviecomm.member.dto.MemberDto">
         SELECT
                         member_no,
                         member_id,
@@ -12,7 +12,7 @@
         WHERE member_id = #{memberId}
     </select>
 
-    <insert id="save" parameterType="Member">
+    <insert id="save" parameterType="hello.moviecomm.member.dto.MemberDto">
         INSERT INTO member (
             member_no,
             member_id,
@@ -36,7 +36,7 @@
         )
     </insert>
 
-    <select id="findAll" resultType="Member">
+    <select id="findAll" resultType="hello.moviecomm.member.dto.MemberDto">
         SELECT
             member_no,
             member_id,

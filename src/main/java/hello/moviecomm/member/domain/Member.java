@@ -1,6 +1,5 @@
-package hello.moviecomm.domain.member;
+package hello.moviecomm.member.domain;
 
-import hello.moviecomm.domain.authority.Authority;
 import lombok.Builder;
 import lombok.Data;
 
@@ -9,7 +8,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class AuthorityMember {
+public class Member {
     private final Integer  memberNo;
     private final String memberId;
     private final String name;

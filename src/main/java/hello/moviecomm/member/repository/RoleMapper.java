@@ -1,6 +1,6 @@
-package hello.moviecomm.repository;
+package hello.moviecomm.member.repository;
 
-import hello.moviecomm.domain.role.Role;
+import hello.moviecomm.member.domain.Role;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

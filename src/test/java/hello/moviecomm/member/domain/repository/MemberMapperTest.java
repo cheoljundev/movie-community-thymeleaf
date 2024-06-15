@@ -1,6 +1,7 @@
-package hello.moviecomm.repository;
+package hello.moviecomm.member.domain.repository;
 
-import hello.moviecomm.domain.member.Member;
+import hello.moviecomm.member.dto.MemberDto;
+import hello.moviecomm.member.repository.MemberMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,63 +19,63 @@ class MemberMapperTest {
     private MemberMapper memberMapper;
     @Test
     void findById() {
-        Member member = Member.builder()
+        MemberDto memberDto = MemberDto.builder()
                 .memberId("user01")
                 .name("김철수")
                 .password("1234")
                 .build();
-        memberMapper.save(member);
-        Member findMember = memberMapper.findById("user01");
-        assertThat(findMember.getMemberId()).isEqualTo(member.getMemberId());
+        memberMapper.save(memberDto);
+        MemberDto findMemberDto = memberMapper.findById("user01");
+        assertThat(findMemberDto.getMemberId()).isEqualTo(memberDto.getMemberId());
     }
 
     @Test
     void save() {
-        Member member = Member.builder()
+        MemberDto memberDto = MemberDto.builder()
                 .memberId("user01")
                 .name("김철수")
                 .password("1234")
                 .build();
-        memberMapper.save(member);
+        memberMapper.save(memberDto);
         assertThat(memberMapper.findById("user01").getName()).isEqualTo("김철수");
     }
 
     @Test
     void saveRole() {
-        Member member = Member.builder()
+        MemberDto memberDto = MemberDto.builder()
                 .memberId("user01")
                 .name("김철수")
                 .password("1234")
                 .build();
-        memberMapper.save(member);
+        memberMapper.save(memberDto);
         Integer memberNo = memberMapper.findById("user01").getMemberNo();
         memberMapper.saveRole(memberNo, 1);
     }
 
     @Test
     void findAll() {
-        Member member1 = Member.builder()
+        MemberDto memberDto1 = MemberDto.builder()
                 .memberId("user02")
                 .name("김철수")
                 .password("1234")
                 .build();
 
-        Member member2 = Member.builder()
+        MemberDto memberDto2 = MemberDto.builder()
                 .memberId("user03")
                 .name("김영희")
                 .password("1234")
                 .build();
 
-        Member member3 = Member.builder()
+        MemberDto memberDto3 = MemberDto.builder()
                 .memberId("user04")
                 .name("김영수")
                 .password("1234")
                 .build();
 
-        memberMapper.save(member1);
-        memberMapper.save(member2);
-        memberMapper.save(member3);
-        List<Member> members = memberMapper.findAll();
+        memberMapper.save(memberDto1);
+        memberMapper.save(memberDto2);
+        memberMapper.save(memberDto3);
+        List<MemberDto> members = memberMapper.findAll();
         assertThat(members.size()).isEqualTo(3);
     }
 

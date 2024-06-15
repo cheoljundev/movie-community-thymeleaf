@@ -1,12 +1,11 @@
-package hello.moviecomm.repository;
+package hello.moviecomm.member.domain.repository;
 
-import hello.moviecomm.domain.authority.Authority;
+import hello.moviecomm.member.domain.Authority;
+import hello.moviecomm.member.repository.AuthorityMapper;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class AuthorityMapperTest {

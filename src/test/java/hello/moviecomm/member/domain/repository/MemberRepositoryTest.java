@@ -1,7 +1,8 @@
-package hello.moviecomm.repository;
+package hello.moviecomm.member.domain.repository;
 
-import hello.moviecomm.domain.member.AuthorityMember;
-import hello.moviecomm.domain.member.Member;
+import hello.moviecomm.member.domain.Member;
+import hello.moviecomm.member.dto.MemberDto;
+import hello.moviecomm.member.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,42 +18,42 @@ class MemberRepositoryTest {
 
     @Test
     void save() {
-        Member member = Member.builder()
+        MemberDto memberDto = MemberDto.builder()
                 .memberId("user01")
                 .name("김철수")
                 .password("1234")
                 .build();
-        Member savedMember = memberRepository.save(member);
-        System.out.println("savedMember = " + savedMember);
-        assertThat(savedMember.getName()).isEqualTo("김철수");
+        MemberDto savedMemberDto = memberRepository.save(memberDto);
+        System.out.println("savedMember = " + savedMemberDto);
+        assertThat(savedMemberDto.getName()).isEqualTo("김철수");
     }
 
     @Test
     void findById() {
-        Member member = Member.builder()
+        MemberDto memberDto = MemberDto.builder()
                 .memberId("user01")
                 .name("김철수")
                 .password("1234")
                 .build();
-        memberRepository.save(member);
-        AuthorityMember user02 = memberRepository.findById("user01");
+        memberRepository.save(memberDto);
+        Member user02 = memberRepository.findById("user01");
         assertThat(user02.getName()).isEqualTo("김철수");
     }
 
     @Test
     void findAll() {
-        Member member1 = Member.builder()
+        MemberDto memberDto1 = MemberDto.builder()
                 .memberId("user02")
                 .name("김철수")
                 .password("1234")
                 .build();
-        Member member2 = Member.builder()
+        MemberDto memberDto2 = MemberDto.builder()
                 .memberId("user03")
                 .name("김영희")
                 .password("1234")
                 .build();
-        memberRepository.save(member1);
-        memberRepository.save(member2);
+        memberRepository.save(memberDto1);
+        memberRepository.save(memberDto2);
         assertThat(memberRepository.findAll().size()).isEqualTo(2);
     }
 }

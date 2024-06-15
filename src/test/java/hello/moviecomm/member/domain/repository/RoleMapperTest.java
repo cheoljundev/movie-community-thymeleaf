@@ -1,7 +1,9 @@
-package hello.moviecomm.repository;
+package hello.moviecomm.member.domain.repository;
 
-import hello.moviecomm.domain.member.Member;
-import hello.moviecomm.domain.role.Role;
+import hello.moviecomm.member.dto.MemberDto;
+import hello.moviecomm.member.domain.Role;
+import hello.moviecomm.member.repository.MemberRepository;
+import hello.moviecomm.member.repository.RoleMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,12 +22,12 @@ class RoleMapperTest {
     MemberRepository memberRepository;
     @Test
     void findByMemberNo() {
-        Member member = Member.builder()
+        MemberDto memberDto = MemberDto.builder()
                 .memberId("user01")
                 .name("김철수")
                 .password("1234")
                 .build();
-        memberRepository.save(member);
+        memberRepository.save(memberDto);
         Integer memberNo = memberRepository.findById("user01").getMemberNo();
         List<Role> roles = roleMapper.findByMemberNo(memberNo);
         assertThat(roles.size()).isEqualTo(1);
