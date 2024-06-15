@@ -11,13 +11,4 @@
         FROM member
         WHERE member_id = #{memberId}
     </select>
-
-    <select id="findAuthorityByCode" resultType="Authority">
-        SELECT
-                        authority_code,
-                        name,
-                        description
-        FROM authority
-        WHERE authority_code = #{authorityCode}
-    </select>
 </mapper>

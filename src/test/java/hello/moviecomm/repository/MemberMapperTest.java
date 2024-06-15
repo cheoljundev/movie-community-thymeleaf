@@ -22,10 +22,5 @@ class MemberMapperTest {
         assertThat(member.getName()).isEqualTo("홍길동");
     }
 
-    @Test
-    void  findAuthorityByCode() {
-        Authority authority = memberMapper.findAuthorityByCode(2);
-        assertThat(authority.getName()).isEqualTo("ROLE_ADMIN");
-    }
 
 }

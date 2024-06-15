@@ -14,6 +14,4 @@ public interface MemberMapper {
 
     List<Member> findMemberAll();
 
-    Authority findAuthorityByCode(Integer authorityCode);
-
 }

@@ -15,6 +15,7 @@ import java.util.List;
 public class MemberRepository {
     private final MemberMapper memberMapper;
     private final RoleMapper roleMapper;
+    private final AuthorityMapper authorityMapper;
 
     public AuthorityMember findByMemberId(String memberId) {
         Member member = memberMapper.findMemberById(memberId);
@@ -24,11 +25,11 @@ public class MemberRepository {
         List<Role> roles = roleMapper.findByMemberNo(member.getMemberNo());
         List<Authority> auths = new ArrayList<>();
 //        for (Role role : roles) {
-//            Authority authority = memberMapper.findAuthorityByCode(role.getAuthorityCode());
+//            Authority authority = authorityMapper.findByAuthorityCode(role.getAuthorityCode());
 //            auths.add(authority);
 //        }
         roles.stream()
-                .map(role -> memberMapper.findAuthorityByCode(role.getAuthorityCode()))
+                .map(role -> authorityMapper.findByAuthorityCode(role.getAuthorityCode()))
                 .forEach(auths::add);
         return AuthorityMember.builder()
                 .memberNo(member.getMemberNo())
