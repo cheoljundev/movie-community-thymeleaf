@@ -11,4 +11,18 @@
         FROM member
         WHERE member_id = #{memberId}
     </select>
+
+    <insert id="save" parameterType="Member">
+        INSERT INTO member (
+            member_no,
+            member_id,
+            name,
+            password
+        ) VALUES (
+            SEQ_MEMBER_NO.NEXTVAL,
+            #{memberId},
+            #{name},
+            #{password}
+        )
+    </insert>
 </mapper>
