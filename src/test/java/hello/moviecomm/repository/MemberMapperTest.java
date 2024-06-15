@@ -35,4 +35,31 @@ class MemberMapperTest {
         assertThat(memberMapper.findMemberById("user02").getName()).isEqualTo("김철수");
     }
 
+    @Test
+    void findAll() {
+        Member member1 = Member.builder()
+                .memberId("user02")
+                .name("김철수")
+                .password("1234")
+                .build();
+
+        Member member2 = Member.builder()
+                .memberId("user03")
+                .name("김영희")
+                .password("1234")
+                .build();
+
+        Member member3 = Member.builder()
+                .memberId("user04")
+                .name("김영수")
+                .password("1234")
+                .build();
+
+        memberMapper.save(member1);
+        memberMapper.save(member2);
+        memberMapper.save(member3);
+        List<Member> members = memberMapper.findAll();
+        assertThat(members.size()).isEqualTo(3);
+    }
+
 }

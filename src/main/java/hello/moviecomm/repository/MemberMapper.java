@@ -12,6 +12,6 @@ public interface MemberMapper {
 
     Member findMemberById(String memberId);
 
-    List<Member> findMemberAll();
+    List<Member> findAll();
 
 }

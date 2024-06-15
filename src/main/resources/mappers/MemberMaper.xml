@@ -25,4 +25,14 @@
             #{password}
         )
     </insert>
+
+    <select id="findAll" resultType="Member">
+        SELECT
+            member_no,
+            member_id,
+            name,
+            password,
+            create_at
+        FROM member
+    </select>
 </mapper>
