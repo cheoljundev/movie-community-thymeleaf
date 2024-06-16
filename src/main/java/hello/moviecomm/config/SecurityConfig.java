@@ -9,7 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity()
 public class SecurityConfig {
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -18,9 +18,17 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(auth ->
-                        auth.anyRequest().permitAll()
+        http.authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/", "/login", "join").permitAll()
+                        .requestMatchers("/admin").hasRole("ADMIN")
+                        .requestMatchers("/my/**").hasAnyRole(  "USER", "ADMIN")
+                        .anyRequest().authenticated()
                 );
+        http.formLogin(form -> form // 폼 로그인 방식
+                .loginPage("/login") //  로그인 페이지
+                .loginProcessingUrl("/login") // 로그인 처리 페이지
+                .permitAll() // 로그인 페이지는 누구나 접근 가능
+        );
         http.csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }
