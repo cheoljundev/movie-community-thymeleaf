@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 @SpringBootApplication
 @Configuration
-@MapperScan(basePackages = "hello.moviecomm.member.repository", annotationClass = Mapper.class)
+@MapperScan(annotationClass = Mapper.class)
 public class MovieCommunityThymeleafApplication {
 
     public static void main(String[] args) {
