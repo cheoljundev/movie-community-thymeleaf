@@ -29,6 +29,10 @@ public class SecurityConfig {
                 .loginProcessingUrl("/login") // 로그인 처리 페이지
                 .permitAll() // 로그인 페이지는 누구나 접근 가능
         );
+        http.logout(logout -> logout
+                .logoutUrl("/logout") // 로그아웃 처리 URL
+                .logoutSuccessUrl("/") // 로그아웃 성공 URL
+        );
         http.csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }
