@@ -9,6 +9,6 @@ public class BoardRepository {
     private final BoardMapper boardMapper;
 
     public String findBoardNameByNo(Integer boardNo) {
-        return boardMapper.findBoardNameByNo(boardNo);
+        return boardMapper.findNameByNo(boardNo);
     }
 }
