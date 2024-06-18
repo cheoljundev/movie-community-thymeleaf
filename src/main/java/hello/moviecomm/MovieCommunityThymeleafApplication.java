@@ -7,8 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
 
 @SpringBootApplication
-@Configuration
-@MapperScan(annotationClass = Mapper.class)
 public class MovieCommunityThymeleafApplication {
 
     public static void main(String[] args) {
