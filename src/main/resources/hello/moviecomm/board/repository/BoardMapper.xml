@@ -7,4 +7,11 @@
         FROM board
         WHERE board_no = #{boardNo}
     </select>
+    <select id="findAll" resultType="hello.moviecomm.board.domain.Board">
+        SELECT
+            board_no,
+            name
+        FROM board
+        ORDER BY board_no
+    </select>
 </mapper>

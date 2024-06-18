@@ -21,4 +21,11 @@ class BoardServiceTest {
         String boardName = boardRepository.findBoardNameByNo(1);
         Assertions.assertThat(boardName).isEqualTo("영화리뷰 게시판");
     }
+
+    @Test
+    void findAllBoard() {
+        String name = boardRepository.findAllBoard().get(0).getName();
+        Assertions.assertThat(name).isEqualTo("영화리뷰 게시판");
+    }
+
 }
