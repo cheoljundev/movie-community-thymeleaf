@@ -1,0 +1,39 @@
+<!--mybatis mapper meta data  setting-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hello.moviecomm.board.repository.PostMapper">
+    <insert id="save" parameterType="hello.moviecomm.board.dto.DbPostDto">
+        INSERT INTO post
+        (post_no, title, content, file_name, store_file_name, member_no, board_no)
+        VALUES
+        (seq_post_no.nextval,
+         #{title},
+         #{content},
+         #{fileName, jdbcType=VARCHAR},
+         #{storeFileName, jdbcType=VARCHAR},
+         #{memberNo},
+         #{boardNo})
+    </insert>
+    <select id="findByNo" resultType="hello.moviecomm.board.dto.DbPostDto">
+        SELECT
+            post_no,
+            title,
+            content,
+            create_at,
+            file_name,
+            store_file_name,
+            member_no,
+            board_no
+        FROM post
+        WHERE post_no = #{postNo}
+    </select>
+    <select id="findAll" resultType="hello.moviecomm.board.dto.DbListPostDto">
+        SELECT
+            post_no,
+            title,
+            create_at,
+            member_no
+        FROM post
+        WHERE  board_no = #{boardNo}
+        ORDER BY post_no DESC
+    </select>
+</mapper>
