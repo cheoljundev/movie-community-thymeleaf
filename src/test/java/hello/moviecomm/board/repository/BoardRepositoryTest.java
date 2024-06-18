@@ -14,17 +14,17 @@ import java.util.List;
 class BoardRepositoryTest {
 
     @Autowired
-    BoardMapper boardMapper;
+    BoardRepository boardRepository;
 
     @Test
     void findBoardNameByNo() {
-        String boardName = boardMapper.findNameByNo(1);
+        String boardName = boardRepository.findBoardNameByNo(1);
         Assertions.assertThat(boardName).isEqualTo("영화리뷰 게시판");
     }
 
     @Test
     void findAllBoard() {
-        List<Board> boards = boardMapper.findAll();
+        List<Board> boards = boardRepository.findAllBoard();
         String name = boards.get(0).getName();
         Assertions.assertThat(name).isEqualTo("영화리뷰 게시판");
     }
