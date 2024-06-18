@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/mainLayout :: layout(~{::title}, ~{::main}, ~{::insertHead})}"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <title>영화리뷰 게시판</title>
+    <th:block th:fragment="insertHead">
+        <style>
+            .table-hover tbody tr:hover {
+                background-color: #f1f1f1;
+            }
+
+            .table a {
+                color: #007bff;
+                text-decoration: none;
+            }
+
+            .table a:hover {
+                color: #0056b3;
+                text-decoration: underline;
+            }
+
+            .table {
+                border-radius: 10px;
+                overflow: hidden;
+            }
+
+            .thead-custom th {
+                background-color: #6c757d;
+                color: #fff;
+                text-align: center;
+                padding: 15px;
+                font-size: 16px;
+                border-top: none;
+            }
+
+            .table-bordered th, .table-bordered td {
+                border: 1px solid #dee2e6;
+            }
+
+            .table-bordered tbody td {
+                text-align: center;
+                vertical-align: middle;
+            }
+
+            .table-responsive {
+                border-radius: 10px;
+                overflow: hidden;
+            }
+        </style>
+    </th:block>
+</head>
+<body>
+<main>
+    <div class="container mt-5">
+        <h2 class="mb-4 text-center">영화 리뷰</h2>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead class="thead-custom">
+                <tr>
+                    <th scope="col">번호</th>
+                    <th scope="col">제목</th>
+                    <th scope="col">작성자</th>
+                    <th scope="col">작성일</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tr>
+                    <td>id</td>
+                    <td><a href="board/id">title</a></td>
+                    <td>작성자</td>
+                    <td>yyyy년 MM월 dd일</td>
+                </tr>
+            </table>
+        </div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">이전</a>
+                </li>
+                <li class="page-item active">
+                    <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">3</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">다음</a></li>
+                </li>
+            </ul>
+        </nav>
+        <div sec:authorize="isAuthenticated()" class="text-right mt-4">
+            <a href="board/write" class="btn btn-primary">글쓰기</a>
+        </div>
+    </div>
+</main>
+</body>
+</html>
