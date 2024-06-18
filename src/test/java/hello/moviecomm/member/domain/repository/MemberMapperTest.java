@@ -19,64 +19,64 @@ class MemberMapperTest {
     private MemberMapper memberMapper;
     @Test
     void findById() {
-        MemberDto memberDto = MemberDto.builder()
-                .memberId("user01")
+        MemberDto member = MemberDto.builder()
+                .memberId("user")
                 .name("김철수")
                 .password("1234")
                 .build();
-        memberMapper.save(memberDto);
-        MemberDto findMemberDto = memberMapper.findById("user01");
-        assertThat(findMemberDto.getMemberId()).isEqualTo(memberDto.getMemberId());
+        memberMapper.save(member);
+        MemberDto user = memberMapper.findById("user");
+        assertThat(user.getName()).isEqualTo("김철수");
     }
 
     @Test
     void save() {
-        MemberDto memberDto = MemberDto.builder()
-                .memberId("user01")
+        MemberDto member = MemberDto.builder()
+                .memberId("user")
                 .name("김철수")
                 .password("1234")
                 .build();
-        memberMapper.save(memberDto);
-        assertThat(memberMapper.findById("user01").getName()).isEqualTo("김철수");
+        memberMapper.save(member);
+        assertThat(memberMapper.findById("user").getName()).isEqualTo("김철수");
     }
 
     @Test
     void saveRole() {
-        MemberDto memberDto = MemberDto.builder()
-                .memberId("user01")
+        MemberDto member = MemberDto.builder()
+                .memberId("user")
                 .name("김철수")
                 .password("1234")
                 .build();
-        memberMapper.save(memberDto);
-        Integer memberNo = memberMapper.findById("user01").getMemberNo();
+        memberMapper.save(member);
+        Integer memberNo = memberMapper.findById("user").getMemberNo();
         memberMapper.saveRole(memberNo, 1);
     }
 
     @Test
     void findAll() {
-        MemberDto memberDto1 = MemberDto.builder()
+        MemberDto member2 = MemberDto.builder()
                 .memberId("user02")
                 .name("김철수")
                 .password("1234")
                 .build();
 
-        MemberDto memberDto2 = MemberDto.builder()
+        MemberDto member3 = MemberDto.builder()
                 .memberId("user03")
                 .name("김영희")
                 .password("1234")
                 .build();
 
-        MemberDto memberDto3 = MemberDto.builder()
+        MemberDto member4 = MemberDto.builder()
                 .memberId("user04")
                 .name("김영수")
                 .password("1234")
                 .build();
 
-        memberMapper.save(memberDto1);
-        memberMapper.save(memberDto2);
-        memberMapper.save(memberDto3);
+        memberMapper.save(member2);
+        memberMapper.save(member3);
+        memberMapper.save(member4);
         List<MemberDto> members = memberMapper.findAll();
-        assertThat(members.size()).isEqualTo(3);
+        assertThat(members.size()).isEqualTo(5); // 미리 세팅된 테스트 계정 2개 포함
     }
 
 }

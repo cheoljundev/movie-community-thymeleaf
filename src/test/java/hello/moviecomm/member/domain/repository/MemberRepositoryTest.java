@@ -18,42 +18,42 @@ class MemberRepositoryTest {
 
     @Test
     void save() {
-        MemberDto memberDto = MemberDto.builder()
-                .memberId("user01")
+        MemberDto member = MemberDto.builder()
+                .memberId("user")
                 .name("김철수")
                 .password("1234")
                 .build();
-        MemberDto savedMemberDto = memberRepository.save(memberDto);
-        System.out.println("savedMember = " + savedMemberDto);
-        assertThat(savedMemberDto.getName()).isEqualTo("김철수");
+        MemberDto savedMember = memberRepository.save(member);
+        System.out.println("savedMember = " + savedMember);
+        assertThat(savedMember.getName()).isEqualTo("김철수");
     }
 
     @Test
     void findById() {
-        MemberDto memberDto = MemberDto.builder()
-                .memberId("user01")
+        MemberDto member = MemberDto.builder()
+                .memberId("user")
                 .name("김철수")
                 .password("1234")
                 .build();
-        memberRepository.save(memberDto);
-        Member user02 = memberRepository.findById("user01");
-        assertThat(user02.getName()).isEqualTo("김철수");
+        memberRepository.save(member);
+        Member findMember = memberRepository.findById("user");
+        assertThat(findMember.getName()).isEqualTo("김철수");
     }
 
     @Test
     void findAll() {
-        MemberDto memberDto1 = MemberDto.builder()
+        MemberDto member2 = MemberDto.builder()
                 .memberId("user02")
                 .name("김철수")
                 .password("1234")
                 .build();
-        MemberDto memberDto2 = MemberDto.builder()
+        MemberDto member3 = MemberDto.builder()
                 .memberId("user03")
                 .name("김영희")
                 .password("1234")
                 .build();
-        memberRepository.save(memberDto1);
-        memberRepository.save(memberDto2);
-        assertThat(memberRepository.findAll().size()).isEqualTo(2);
+        memberRepository.save(member2);
+        memberRepository.save(member3);
+        assertThat(memberRepository.findAll().size()).isEqualTo(4); // 테스트 데이터 2개 + 기존 데이터 2개
     }
 }

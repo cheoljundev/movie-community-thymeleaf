@@ -22,13 +22,13 @@ class RoleMapperTest {
     MemberRepository memberRepository;
     @Test
     void findByMemberNo() {
-        MemberDto memberDto = MemberDto.builder()
-                .memberId("user01")
+        MemberDto member = MemberDto.builder()
+                .memberId("user")
                 .name("김철수")
                 .password("1234")
                 .build();
-        memberRepository.save(memberDto);
-        Integer memberNo = memberRepository.findById("user01").getMemberNo();
+        memberRepository.save(member);
+        Integer memberNo = memberRepository.findById("user").getMemberNo();
         List<Role> roles = roleMapper.findByMemberNo(memberNo);
         assertThat(roles.size()).isEqualTo(1);
     }
