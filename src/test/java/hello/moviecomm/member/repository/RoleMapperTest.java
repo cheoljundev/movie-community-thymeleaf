@@ -1,4 +1,4 @@
-package hello.moviecomm.member.domain.repository;
+package hello.moviecomm.member.repository;
 
 import hello.moviecomm.member.dto.MemberDto;
 import hello.moviecomm.member.domain.Role;

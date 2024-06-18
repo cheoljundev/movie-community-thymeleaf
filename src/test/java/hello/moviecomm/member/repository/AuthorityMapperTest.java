@@ -1,4 +1,4 @@
-package hello.moviecomm.member.domain.repository;
+package hello.moviecomm.member.repository;
 
 import hello.moviecomm.member.domain.Authority;
 import hello.moviecomm.member.repository.AuthorityMapper;
