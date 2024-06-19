@@ -22,12 +22,18 @@
     .footer-content p {
       margin-bottom: 0;
     }
+
+  /*  로고 이미지*/
+    .logo-img{
+      width: 40px;
+      margin-right: 10px;
+    }
   </style>
 </head>
 <body>
 <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom px-3">
   <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-    영화리뷰커뮤니티
+    <img src="/images/common/logo.png" alt="로고이미지" class="logo-img"> 영화리뷰커뮤니티
   </a>
 
   <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
@@ -46,6 +52,7 @@
   <div class="col-md-3 text-end">
     <a sec:authorize="isAnonymous()" href="/login" type="button" class="btn btn-outline-primary me-2">로그인</a>
     <a sec:authorize="isAnonymous()" href="/join" type="button" class="btn btn-primary">회원가입</a>
+    <span sec:authorize="isAuthenticated()" class="m-2"><span sec:authentication="principal.username"></span>님, 안녕하세요!</span>
     <a sec:authorize="isAuthenticated()" href="/logout" type="button" class="btn btn-outline-primary me-2">로그아웃</a>
   </div>
 </header>
