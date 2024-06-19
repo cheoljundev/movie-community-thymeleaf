@@ -1,10 +1,12 @@
 package hello.moviecomm.board.repository;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import hello.moviecomm.board.dto.DbListPostDto;
+import hello.moviecomm.board.dto.DbPostDto;
 
-@Repository
-@RequiredArgsConstructor
-public class PostRepository {
-    private final PostMapper postMapper;
+import java.util.List;
+
+public interface PostRepository {
+    void save(DbPostDto dbPostDto);
+    DbPostDto findByNo(Integer postNo);
+    List<DbListPostDto> findAll(Integer boardNo);
 }
