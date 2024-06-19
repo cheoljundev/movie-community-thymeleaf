@@ -18,7 +18,7 @@ public class PostService {
     public DbPostDto findByNo(Integer postNo) {
         return postRepository.findByNo(postNo);
     }
-    List<DbListPostDto> findAll(Integer boardNo) {
+    public List<DbListPostDto> findAll(Integer boardNo) {
         return postRepository.findAll(boardNo);
     }
 }
