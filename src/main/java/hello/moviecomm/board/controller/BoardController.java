@@ -1,5 +1,6 @@
 package hello.moviecomm.board.controller;
 
+import hello.moviecomm.board.domain.Board;
 import hello.moviecomm.board.dto.DbListPostDto;
 import hello.moviecomm.board.dto.DbPostDto;
 import hello.moviecomm.board.dto.DetailPostDto;
@@ -30,6 +31,12 @@ public class BoardController {
 
     @GetMapping("/{boardNo}")
     public String list(@PathVariable("boardNo") Integer boardNo, Model model) {
+        List<Board> boards = boardService.findAllBoard();
+        //  boards의 boardNo 중에 boardNo가 있는지 확인
+        boolean isExist = boards.stream().anyMatch(board -> board.getBoardNo().equals(boardNo));
+        if (!isExist) {
+            return "redirect:/";
+        }
         String boardName = boardService.findBoardNameByNo(boardNo);
         List<ListPostDto> postList = postService.findAll(boardNo);
         model.addAttribute("boardNo", boardNo);
