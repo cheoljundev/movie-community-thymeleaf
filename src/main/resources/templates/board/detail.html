@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/mainLayout :: layout(~{::title}, ~{::main}, ~{::insertHead})}"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <title th:text="|${boardName}  - ${post.title}|">게시판 디테일</title>
+    <th:block th:fragment="insertHead">
+    </th:block>
+</head>
+<body>
+<main>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title text-black p-3 mb-4" th:text="${post.title}">title</h5>
+                <div class="row">
+                    <div class="col-md-3">
+                        <p class="font-weight-bold">작성자:</p>
+                    </div>
+                    <div class="col-md-9">
+                        <p th:text="${post.memberName}">작성자</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <p class="font-weight-bold">작성일:</p>
+                    </div>
+                    <div class="col-md-9">
+                        <p th:text="${{post.createAt}}">yyyy년 mm월 dd일</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mt-4">
+            <div class="card-body">
+                <div class="row">
+                    <img th:if="${post.fileName != null}" src="/board/image/${post.storeFileName}" alt="Uploaded image"/>
+                    <div class="col-md-9">
+                        <p th:text="${post.content}">글내용</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-right mt-4">
+            <a href="/board/1" th:href="@{/board/{boardNo} (boardNo=${boardNo})}" class="btn btn-primary">목록</a>
+        </div>
+    </div>
+</main>
+</body>
+</html>
