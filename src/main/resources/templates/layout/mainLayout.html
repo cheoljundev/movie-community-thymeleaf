@@ -31,8 +31,16 @@
   </a>
 
   <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-    <li><a href="/" class="nav-link px-2 link-secondary">홈</a></li>
-    <li th:each="board : ${allBoard}"><a href="/board/1" th:href="@{/board/{no} (no=${board.boardNo})}" class="nav-link px-2 link-dark" th:text="${board.name}">게시판명</a></li>
+    <li><a href="/"
+           class="nav-link px-2"
+           th:classappend="${uri == '/' ? 'link-dark' : 'link-secondary'}"
+    >홈</a></li>
+    <li th:each="board : ${allBoard}">
+      <a href="/board/1" th:href="@{/board/{no} (no=${board.boardNo})}"
+                                         class="nav-link px-2"
+         th:classappend="${uri == '/board/' + board.boardNo ? 'link-dark' : 'link-secondary'}"
+       th:text="${board.name}">게시판명</a>
+    </li>
   </ul>
 
   <div class="col-md-3 text-end">
