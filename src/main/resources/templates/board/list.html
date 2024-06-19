@@ -68,7 +68,7 @@
                 </tbody>
                 <tr th:each="post : ${postList}">
                     <td th:text="${post.postNo}">no</td>
-                    <td><a href="board/id" th:href="@{/board/{boardNo} (boardNo=${boardNo}, postNo=${post.postNo})}" th:text="${post.title}">title</a></td>
+                    <td><a href="board/id" th:href="@{/board/{boardNo}/detail (boardNo=${boardNo}, postNo=${post.postNo})}" th:text="${post.title}">title</a></td>
                     <td th:text="${post.memberName}">작성자</td>
                     <td th:text="${{post.createAt}}">yyyy년 MM월 dd일</td>
                 </tr>
