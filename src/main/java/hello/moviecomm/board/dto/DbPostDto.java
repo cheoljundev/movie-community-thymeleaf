@@ -1,20 +1,21 @@
 package hello.moviecomm.board.dto;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.util.Date;
 
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class DbPostDto {
-    private final Integer postNo;
-    private final String title;
-    private final String content;
-    private final Date createAt;
-    private final String fileName;
-    private final String storeFileName;
-    private final Integer memberNo;
-    private final Integer boardNo;
+    private Integer postNo;
+    private String title;
+    private String content;
+    private Date createAt;
+    private String fileName;
+    private String storeFileName;
+    private Integer memberNo;
+    private Integer boardNo;
 }

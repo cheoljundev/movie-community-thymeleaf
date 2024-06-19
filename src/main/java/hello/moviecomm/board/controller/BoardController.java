@@ -7,17 +7,18 @@ import hello.moviecomm.board.dto.ListPostDto;
 import hello.moviecomm.board.service.BoardService;
 import hello.moviecomm.board.service.PostService;
 import hello.moviecomm.member.domain.Member;
+import hello.moviecomm.member.dto.CustomUserDetails;
 import hello.moviecomm.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequestMapping("/board")
 @RequiredArgsConstructor
@@ -54,6 +55,23 @@ public class BoardController {
         model.addAttribute("boardNo", boardNo);
         model.addAttribute("post", detailPost);
         return "board/detail";
+    }
+
+    @GetMapping("/write")
+    public String writeForm(@RequestParam("boardNo") Integer boardNo, Model model){
+        DbPostDto post = DbPostDto.builder().build();
+        model.addAttribute("boardNo", boardNo);
+        model.addAttribute("post", post);
+        return "board/write";
+    }
+
+    @PostMapping("/write/{boardNo}")
+    public String write(@ModelAttribute DbPostDto post, @AuthenticationPrincipal CustomUserDetails user, @PathVariable("boardNo") Integer boardNo) {
+        Integer memberNo = user.getMember().getMemberNo();
+        post.setMemberNo(memberNo);
+        post.setBoardNo(boardNo);
+        postService.save(post);
+        return "redirect:/board/" + post.getBoardNo();
     }
 
 }
