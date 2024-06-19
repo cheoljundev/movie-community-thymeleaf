@@ -12,6 +12,17 @@
         WHERE member_id = #{memberId}
     </select>
 
+    <select id="findByNo" resultType="hello.moviecomm.member.dto.MemberDto">
+        SELECT
+                        member_no,
+                        member_id,
+                        name,
+                        password,
+                        create_at
+        FROM member
+        WHERE member_no = #{memberNo}
+    </select>
+
     <insert id="save" parameterType="hello.moviecomm.member.dto.MemberDto">
         INSERT INTO member (
             member_no,

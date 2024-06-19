@@ -58,6 +58,27 @@ public class MyBatisMemberRepository  implements MemberRepository{
     }
 
     @Override
+    public Member findByNo(Integer memberNo) {
+        MemberDto memberDto = memberMapper.findByNo(memberNo);
+        if (memberDto == null) {
+            return null;
+        }
+        List<Role> roles = roleMapper.findByMemberNo(memberDto.getMemberNo());
+        List<Authority> auths = new ArrayList<>();
+        roles.stream()
+                .map(role -> authorityMapper.findByAuthorityCode(role.getAuthorityCode()))
+                .forEach(auths::add);
+        return Member.builder()
+                .memberNo(memberDto.getMemberNo())
+                .memberId(memberDto.getMemberId())
+                .name(memberDto.getName())
+                .password(memberDto.getPassword())
+                .createAt(memberDto.getCreateAt())
+                .auths(auths)
+                .build();
+    }
+
+    @Override
     public List<Member> findAll() {
         List<MemberDto> originMemberDtos = memberMapper.findAll();
         List<Member> members = new ArrayList<>();

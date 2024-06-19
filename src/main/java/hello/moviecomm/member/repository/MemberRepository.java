@@ -8,5 +8,6 @@ import java.util.List;
 public interface MemberRepository {
     MemberDto save(MemberDto memberDto);
     Member findById(String memberId);
+    Member findByNo(Integer memberNo);
     List<Member> findAll();
 }

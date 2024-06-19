@@ -30,6 +30,19 @@ class MemberMapperTest {
     }
 
     @Test
+    void findByNo() {
+        MemberDto member = MemberDto.builder()
+                .memberId("user")
+                .name("김철수")
+                .password("1234")
+                .build();
+        memberMapper.save(member);
+        Integer memberNo = memberMapper.findById("user").getMemberNo();
+        MemberDto user = memberMapper.findByNo(memberNo);
+        assertThat(user.getName()).isEqualTo("김철수");
+    }
+
+    @Test
     void save() {
         MemberDto member = MemberDto.builder()
                 .memberId("user")

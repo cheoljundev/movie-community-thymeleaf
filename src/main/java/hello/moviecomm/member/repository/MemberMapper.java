@@ -13,6 +13,8 @@ public interface MemberMapper {
 
     MemberDto findById(String memberId);
 
+    MemberDto findByNo(Integer memberNo);
+
     List<MemberDto> findAll();
 
 }
