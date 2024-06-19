@@ -38,7 +38,7 @@
     <li th:each="board : ${allBoard}">
       <a href="/board/1" th:href="@{/board/{no} (no=${board.boardNo})}"
                                          class="nav-link px-2"
-         th:classappend="${uri == '/board/' + board.boardNo ? 'link-dark' : 'link-secondary'}"
+         th:classappend="${uri.contains('/board/' + board.boardNo) ? 'link-dark' : 'link-secondary'}"
        th:text="${board.name}">게시판명</a>
     </li>
   </ul>
