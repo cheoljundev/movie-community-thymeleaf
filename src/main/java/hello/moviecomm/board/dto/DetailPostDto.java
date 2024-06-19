@@ -15,6 +15,6 @@ public class DetailPostDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private final Date createAt;
     private final String fileName;
-    private final String StoreFileName;
+    private final String storeFileName;
     private final String memberName;
 }
