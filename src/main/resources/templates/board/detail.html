@@ -39,8 +39,10 @@
         </div>
         <div class="card mt-4">
             <div class="card-body">
-                <div class="row my-5">
-                    <img th:if="${post.storeFileName != null}"
+                <div
+                        th:if="${post.storeFileName != null}"
+                        class="row my-5">
+                    <img
                          class="attach-img"
                          src="/board/image/filename.jpg"
                          th:src="@{/board/image/{fileName} (fileName = ${post.storeFileName})}"
@@ -61,8 +63,7 @@
                sec:authorize="isAuthenticated()"
                th:if="${#authentication.principal.name == post.memberName or #authentication.principal.hasRole('ROLE_ADMIN')}"
                th:href="@{/board/modify/{boardNo} (boardNo=${boardNo})}"
-               class="btn btn-danger">수정</a>
-        </div>
+               class="btn btn-warning">수정</a>
             <a href="/board/delete/1"
                sec:authorize="isAuthenticated()"
                th:if="${#authentication.principal.name == post.memberName or #authentication.principal.hasRole('ROLE_ADMIN')}"
