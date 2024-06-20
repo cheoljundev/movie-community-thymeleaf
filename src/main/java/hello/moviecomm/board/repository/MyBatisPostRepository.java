@@ -3,6 +3,7 @@ package hello.moviecomm.board.repository;
 import hello.moviecomm.board.dto.DbListPostDto;
 import hello.moviecomm.board.dto.DbPostDto;
 import hello.moviecomm.board.dto.ListPostDto;
+import hello.moviecomm.board.dto.ModifyPostDto;
 import hello.moviecomm.member.repository.MemberRepository;
 import hello.moviecomm.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -40,5 +41,15 @@ public class MyBatisPostRepository implements PostRepository{
                     .build());
         });
         return listPostDtoList;
+    }
+
+    @Override
+    public void remove(Integer postNo) {
+        postMapper.remove(postNo);
+    }
+
+    @Override
+    public void modify(ModifyPostDto modifyPostDto, Integer postNo) {
+        postMapper.modify(modifyPostDto, postNo);
     }
 }
