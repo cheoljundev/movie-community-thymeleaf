@@ -35,6 +35,10 @@ public class CustomUserDetails implements UserDetails {
         return collection;
     }
 
+    public boolean hasRole(String role) {
+        return getAuthorities().contains(new SimpleGrantedAuthority(role));
+    }
+
     @Override
     public String getPassword() {
         return member.getPassword();
