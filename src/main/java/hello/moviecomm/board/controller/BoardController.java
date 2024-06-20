@@ -44,7 +44,7 @@ public class BoardController {
         //  boards의 boardNo 중에 boardNo가 있는지 확인
         boolean isExist = boards.stream().anyMatch(board -> board.getBoardNo().equals(boardNo));
         if (!isExist) {
-            throw new NotFoundException("게시판 번호 : " + boardNo +", 게시판이 존재하지 않습니다.");
+            throw new NotFoundException("게시판 번호 " + boardNo +" 게시판이 존재하지 않습니다.");
         }
         String boardName = boardService.findBoardNameByNo(boardNo);
         List<ListPostDto> postList = postService.findAll(boardNo);

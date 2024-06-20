@@ -29,7 +29,7 @@
             <div class="container full-height center-content">
                 <div class="text-center">
                     <h1 class="display-1">404</h1>
-                    <p class="lead">죄송합니다! 찾고 있는 페이지가 존재하지 않습니다.</p>
+                    <p class="lead">죄송합니다! <span th:text="${errorMessage}">에러메시지</span></p>
                     <a href="/" class="btn btn-primary">홈페이지로 이동</a>
                 </div>
             </div>
