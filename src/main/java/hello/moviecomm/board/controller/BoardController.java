@@ -68,7 +68,6 @@ public class BoardController {
                 .storeFileName(post.getStoreFileName())
                 .memberName(memberName)
                 .build();
-        log.info("detailPost: {}", detailPost);
         model.addAttribute("boardName", boardName);
         model.addAttribute("boardNo", boardNo);
         model.addAttribute("post", detailPost);
