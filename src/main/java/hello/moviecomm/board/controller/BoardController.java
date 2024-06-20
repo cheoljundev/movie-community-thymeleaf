@@ -4,13 +4,13 @@ import hello.moviecomm.board.domain.Board;
 import hello.moviecomm.board.dto.*;
 import hello.moviecomm.board.service.BoardService;
 import hello.moviecomm.board.service.PostService;
-import hello.moviecomm.error.exception.BoardNotFoundException;
-import hello.moviecomm.member.domain.Member;
+import hello.moviecomm.error.exception.NotFoundException;
 import hello.moviecomm.member.dto.CustomUserDetails;
 import hello.moviecomm.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -21,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
@@ -43,7 +44,7 @@ public class BoardController {
         //  boards의 boardNo 중에 boardNo가 있는지 확인
         boolean isExist = boards.stream().anyMatch(board -> board.getBoardNo().equals(boardNo));
         if (!isExist) {
-            throw new BoardNotFoundException("게시판 번호 : " + boardNo +", 게시판이 존재하지 않습니다.");
+            throw new NotFoundException("게시판 번호 : " + boardNo +", 게시판이 존재하지 않습니다.");
         }
         String boardName = boardService.findBoardNameByNo(boardNo);
         List<ListPostDto> postList = postService.findAll(boardNo);
@@ -93,10 +94,16 @@ public class BoardController {
 
     @GetMapping("/image/{fileName}")
     @ResponseBody
-    public ResponseEntity<Resource> downloadImage(@PathVariable("fileName") String fileName) throws MalformedURLException {
+    public ResponseEntity<Resource> downloadImage(@PathVariable("fileName") String fileName)  {
         String directory = System.getProperty("user.dir") + fileDir;
+        String filePath = directory + fileName;
+        File file = new File(filePath);
 
-        Resource resource = new UrlResource("file:" + directory + fileName);
+        Resource resource = new FileSystemResource(file); // 파일을 리소스로 변환
+
+        if (!file.exists() || !file.isFile()) { // 파일이 존재하지 않거나 디렉토리인 경우
+            throw new NotFoundException("파일을 찾을 수 없습니다.");
+        }
 
         // 파일 확장자를 통해 MIME 타입을 결정
         String mimeType;

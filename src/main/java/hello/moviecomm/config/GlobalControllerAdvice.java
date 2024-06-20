@@ -2,7 +2,7 @@ package hello.moviecomm.config;
 
 import hello.moviecomm.board.domain.Board;
 import hello.moviecomm.board.service.BoardService;
-import hello.moviecomm.error.exception.BoardNotFoundException;
+import hello.moviecomm.error.exception.NotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -32,9 +32,9 @@ public class GlobalControllerAdvice {
         return request.getRequestURI();
     }
 
-    @ExceptionHandler(BoardNotFoundException.class)
+    @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String handleBoardNotFoundException(BoardNotFoundException ex, Model model) {
+    public String handleBoardNotFoundException(NotFoundException ex, Model model) {
         model.addAttribute("allBoard", allBoard());
         model.addAttribute("uri", currentUri());
         model.addAttribute("errorMessage", ex.getMessage());
