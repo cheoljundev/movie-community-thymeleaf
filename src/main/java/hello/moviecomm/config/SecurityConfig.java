@@ -2,11 +2,14 @@ package hello.moviecomm.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.access.AccessDeniedHandlerImpl;
 
 @Configuration
 @EnableWebSecurity()
@@ -19,8 +22,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/board/write/**").authenticated()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll()
                 );
+        http.exceptionHandling(exception -> exception
+                .accessDeniedHandler(accessDeniedHandler())
+        );
         http.formLogin(form -> form // 폼 로그인 방식
                 .loginPage("/login") //  로그인 페이지
                 .loginProcessingUrl("/login") // 로그인 처리 페이지
@@ -32,5 +40,12 @@ public class SecurityConfig {
         );
         http.csrf(AbstractHttpConfigurer::disable);
         return http.build();
+    }
+
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        AccessDeniedHandlerImpl accessDeniedHandler = new AccessDeniedHandlerImpl();
+        accessDeniedHandler.setErrorPage("/access-denied");  // 접근 거부 시 이동할 페이지
+        return accessDeniedHandler;
     }
 }

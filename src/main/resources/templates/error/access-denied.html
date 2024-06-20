@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/mainLayout :: layout(~{::title}, ~{::main}, ~{::insertHead})}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>권한이 없습니다.</title>
+    <th:block th:fragment="insertHead">
+        <style>
+            body, html {
+                height: 100%;
+            }
+            .bg-dark {
+                background-color: #343a40 !important;
+            }
+            .full-height {
+                height: 100%;
+            }
+            .center-content {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        </style>
+    </th:block>
+</head>
+<body>
+<main>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="container full-height center-content">
+                <div class="text-center">
+                    <h1 class="display-1" >권한 없음</h1>
+                    <p class="lead">죄송합니다! 현재 접근은 권한이 없습니다.</p>
+                    <a href="/" class="btn btn-primary">홈페이지로 이동</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

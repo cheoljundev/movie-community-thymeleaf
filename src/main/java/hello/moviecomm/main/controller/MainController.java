@@ -9,4 +9,9 @@ public class MainController {
     public String main() {
         return "main/main";
     }
+
+    @GetMapping("/admin")
+    public String admin() {
+        return "admin/admin";
+    }
 }

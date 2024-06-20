@@ -5,6 +5,11 @@
 <head>
     <title th:text="|${boardName}  - 글쓰기|">글쓰기</title>
     <th:block th:fragment="insertHead">
+        <style>
+            .container {
+                max-width: 500px;
+            }
+        </style>
     </th:block>
 </head>
 <body>
@@ -21,8 +26,8 @@
                 <textarea class="form-control" id="content" name="content" rows="5" th:field="*{content}" required></textarea>
             </div>
             <div class="mb-3">
-                <label for="file" class="form-label">첨부파일</label>
-                <input type="file" class="form-control-file" id="file" th:field="*{file}" name="file">
+                <label for="file" class="form-label">이미지 첨부하기</label>
+                <input type="file" class="form-control-file" id="file" th:field="*{file}" name="file" accept="image/*">
             </div>
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-primary">글쓰기</button>
