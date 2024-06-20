@@ -18,9 +18,11 @@ import java.util.List;
 public class CustomUserDetails implements UserDetails {
 
     private final Member member;
+    private final String name;
 
     public CustomUserDetails(Member member) {
         this.member = member;
+        this.name = member.getName();
     }
 
     @Override
