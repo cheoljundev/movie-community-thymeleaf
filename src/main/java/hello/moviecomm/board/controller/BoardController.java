@@ -101,7 +101,7 @@ public class BoardController {
 
         Resource resource = new FileSystemResource(file); // 파일을 리소스로 변환
 
-        if (!file.exists() || !file.isFile()) { // 파일이 존재하지 않거나 디렉토리인 경우
+        if (!file.exists() || !file.isFile()) { // 파일이 존재하지 않거나 파일이 아닌 경우
             throw new NotFoundException("파일을 찾을 수 없습니다.");
         }
 
