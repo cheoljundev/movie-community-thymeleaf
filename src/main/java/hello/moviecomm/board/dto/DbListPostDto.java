@@ -8,7 +8,6 @@ import java.util.Date;
 
 @Data
 @Builder
-@ToString
 public class DbListPostDto {
     private final Integer postNo;
     private final String title;

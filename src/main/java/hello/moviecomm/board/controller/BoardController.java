@@ -1,10 +1,7 @@
 package hello.moviecomm.board.controller;
 
 import hello.moviecomm.board.domain.Board;
-import hello.moviecomm.board.dto.DbListPostDto;
-import hello.moviecomm.board.dto.DbPostDto;
-import hello.moviecomm.board.dto.DetailPostDto;
-import hello.moviecomm.board.dto.ListPostDto;
+import hello.moviecomm.board.dto.*;
 import hello.moviecomm.board.service.BoardService;
 import hello.moviecomm.board.service.PostService;
 import hello.moviecomm.member.domain.Member;
@@ -17,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -56,8 +54,10 @@ public class BoardController {
                 .content(post.getContent())
                 .createAt(post.getCreateAt())
                 .fileName(post.getFileName())
+                .storeFileName(post.getStoreFileName())
                 .memberName(memberName)
                 .build();
+        log.info("detailPost: {}", detailPost);
         model.addAttribute("boardName", boardName);
         model.addAttribute("boardNo", boardNo);
         model.addAttribute("post", detailPost);
@@ -66,14 +66,14 @@ public class BoardController {
 
     @GetMapping("/write")
     public String writeForm(@RequestParam("boardNo") Integer boardNo, Model model){
-        DbPostDto post = DbPostDto.builder().build();
+        WritePostDto post = new WritePostDto();
         model.addAttribute("boardNo", boardNo);
         model.addAttribute("post", post);
         return "board/write";
     }
 
     @PostMapping("/write/{boardNo}")
-    public String write(@ModelAttribute DbPostDto post, @AuthenticationPrincipal CustomUserDetails user, @PathVariable("boardNo") Integer boardNo) {
+    public String write(@ModelAttribute WritePostDto post, @AuthenticationPrincipal CustomUserDetails user, @PathVariable("boardNo") Integer boardNo) throws IOException {
         Integer memberNo = user.getMember().getMemberNo();
         post.setMemberNo(memberNo);
         post.setBoardNo(boardNo);
