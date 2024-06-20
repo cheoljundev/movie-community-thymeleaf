@@ -2,6 +2,7 @@ package hello.moviecomm.board.repository;
 
 import hello.moviecomm.board.dto.DbListPostDto;
 import hello.moviecomm.board.dto.DbPostDto;
+import hello.moviecomm.board.dto.ModifyPostDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +44,23 @@ class PostMapperTest {
         List<DbListPostDto> list = postMapper.findAll(1);
         DbListPostDto post = list.get(0);
         Assertions.assertThat(post.getTitle()).isEqualTo("테스트글");
+    }
+
+    @Test
+    void remove() {
+        postMapper.remove(1);
+        DbPostDto post = postMapper.findByNo(1);
+        Assertions.assertThat(post).isNull();
+    }
+
+    @Test
+    void modify() {
+        ModifyPostDto modifyPostDto = ModifyPostDto.builder()
+                .title("수정된 제목")
+                .content("수정된 내용")
+                .build();
+        postMapper.modify(modifyPostDto, 1);
+        DbPostDto post = postMapper.findByNo(1);
+        Assertions.assertThat(post.getTitle()).isEqualTo("수정된 제목");
     }
 }

@@ -36,4 +36,17 @@
         WHERE  board_no = #{boardNo}
         ORDER BY post_no DESC
     </select>
+    <update id="remove">
+        DELETE FROM post
+        WHERE post_no = #{postNo}
+    </update>
+    <update id ="modify" parameterType="hello.moviecomm.board.dto.ModifyPostDto"  >
+        update  post
+        set
+            title = #{modifyPostDto.title},
+            content = #{modifyPostDto.content},
+            file_name = #{modifyPostDto.fileName, jdbcType=VARCHAR},
+            store_file_name = #{modifyPostDto.storeFileName, jdbcType=VARCHAR}
+        where post_no = #{postNo}
+    </update>
 </mapper>

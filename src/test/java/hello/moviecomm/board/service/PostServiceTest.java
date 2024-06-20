@@ -1,11 +1,14 @@
 package hello.moviecomm.board.service;
 
 import hello.moviecomm.board.dto.DbPostDto;
+import hello.moviecomm.board.dto.WritePostDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,8 +20,8 @@ class PostServiceTest {
     private PostService postService;
 
     @Test
-    void save() {
-        DbPostDto post = DbPostDto.builder()
+    void save() throws IOException {
+        WritePostDto post = WritePostDto.builder()
                 .boardNo(1)
                 .title("title")
                 .content("content")
