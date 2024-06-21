@@ -128,4 +128,12 @@ public class BoardController {
 
         return new ResponseEntity<>(resource, headers, HttpStatus.OK);
     }
+
+    @GetMapping("/delete/{boardNo}/{postNo}")
+    public String delete(@PathVariable("postNo") Integer postNo,
+                         @PathVariable("boardNo") Integer boardNo,
+                         @AuthenticationPrincipal CustomUserDetails user) {
+        postService.remove(postNo, user);
+        return "redirect:/board/" + boardNo;
+    }
 }

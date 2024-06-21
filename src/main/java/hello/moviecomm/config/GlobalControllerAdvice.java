@@ -1,6 +1,7 @@
 package hello.moviecomm.config;
 
 import hello.moviecomm.board.domain.Board;
+import hello.moviecomm.board.exception.AccessDeniedException;
 import hello.moviecomm.board.service.BoardService;
 import hello.moviecomm.error.exception.NotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -39,5 +40,14 @@ public class GlobalControllerAdvice {
         model.addAttribute("uri", currentUri());
         model.addAttribute("errorMessage", ex.getMessage());
         return "error/404";
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public String handleAccessDeniedException(AccessDeniedException ex, Model model) {
+        model.addAttribute("allBoard", allBoard());
+        model.addAttribute("uri", currentUri());
+        model.addAttribute("errorMessage", ex.getMessage());
+        return "error/access-denied";
     }
 }

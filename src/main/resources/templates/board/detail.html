@@ -62,12 +62,12 @@
             <a href="/board/delete/1"
                sec:authorize="isAuthenticated()"
                th:if="${#authentication.principal.name == post.memberName or #authentication.principal.hasRole('ROLE_ADMIN')}"
-               th:href="@{/board/modify/{boardNo} (boardNo=${boardNo})}"
+               th:href="@{/board/modify/{boardNo}/{postNo} (boardNo=${boardNo}, postNo=${post.postNo})}"
                class="btn btn-warning">수정</a>
             <a href="/board/delete/1"
                sec:authorize="isAuthenticated()"
                th:if="${#authentication.principal.name == post.memberName or #authentication.principal.hasRole('ROLE_ADMIN')}"
-               th:href="@{/board/delete/{boardNo} (boardNo=${boardNo})}"
+               th:href="@{/board/delete/{boardNo}/{postNo} (boardNo=${boardNo}, postNo=${post.postNo})}"
                class="btn btn-danger">삭제</a>
         </div>
     </div>

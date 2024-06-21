@@ -3,7 +3,9 @@ package hello.moviecomm.board.service;
 import hello.moviecomm.board.dto.DbPostDto;
 import hello.moviecomm.board.dto.ListPostDto;
 import hello.moviecomm.board.dto.WritePostDto;
+import hello.moviecomm.board.exception.AccessDeniedException;
 import hello.moviecomm.board.repository.PostRepository;
+import hello.moviecomm.member.dto.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -42,6 +44,22 @@ public class PostService {
 
     public List<ListPostDto> findAll(Integer boardNo) {
         return postRepository.findAll(boardNo);
+    }
+
+    public void remove(Integer postNo, CustomUserDetails customUserDetails) {
+
+        if (customUserDetails == null) {
+            throw new AccessDeniedException("게시글 삭제 권한이 없습니다.");
+        }
+
+        DbPostDto post = findByNo(postNo);
+        Integer memberNo = customUserDetails.getMember().getMemberNo();
+        boolean isAdmin = customUserDetails.hasRole("ROLE_ADMIN");
+        if (post.getMemberNo() == memberNo || isAdmin) {
+            postRepository.remove(postNo);
+        } else {
+            throw new AccessDeniedException("게시글 삭제 권한이 없습니다.");
+        }
     }
 
     private static boolean isFisFileValidile(MultipartFile file) {
