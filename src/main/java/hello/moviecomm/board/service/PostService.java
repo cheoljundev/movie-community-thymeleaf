@@ -29,41 +29,50 @@ public class PostService {
                 .boardNo(writePostDto.getBoardNo())
                 .build();
 
-        if (file != null && !file.isEmpty()) {
-            // 파일 이름 추출
-            String fileName = file.getOriginalFilename();
-
-            // 파일 이름 설정을 위한 UUID 생성
-            String uuid = UUID.randomUUID().toString();
-
-            // 확장자 추출
-            int extIndex = fileName.lastIndexOf(".") + 1;
-            String ext = fileName.substring(extIndex);
-            String storeFileName = uuid + "." + ext;
-
-            // dbPostDto에 파일 정보 저장
-            dbPostDto.setFileName(fileName);
-            dbPostDto.setStoreFileName(storeFileName);
-
-            // 파일 저장 경로
-            String filePath = projectPath + fileDir + storeFileName;
-
-            // 파일 디렉토리가 없으면 생성
-            File directory = new File(projectPath + fileDir);
-            if (!directory.exists()) {
-                directory.mkdirs();
-            }
-
-            // 파일 저장
-            file.transferTo(new File(filePath));
+        if (isFisFileValidile(file)) {
+            saveFile(file, dbPostDto);
         }
 
         postRepository.save(dbPostDto);
     }
+
     public DbPostDto findByNo(Integer postNo) {
         return postRepository.findByNo(postNo);
     }
+
     public List<ListPostDto> findAll(Integer boardNo) {
         return postRepository.findAll(boardNo);
+    }
+
+    private static boolean isFisFileValidile(MultipartFile file) {
+        return file != null && !file.isEmpty();
+    }
+    private void saveFile(MultipartFile file, DbPostDto dbPostDto) throws IOException {
+        // 파일 이름 추출
+        String fileName = file.getOriginalFilename();
+
+        // 파일 이름 설정을 위한 UUID 생성
+        String uuid = UUID.randomUUID().toString();
+
+        // 확장자 추출
+        int extIndex = fileName.lastIndexOf(".") + 1;
+        String ext = fileName.substring(extIndex);
+        String storeFileName = uuid + "." + ext;
+
+        // dbPostDto에 파일 정보 저장
+        dbPostDto.setFileName(fileName);
+        dbPostDto.setStoreFileName(storeFileName);
+
+        // 파일 저장 경로
+        String filePath = projectPath + fileDir + storeFileName;
+
+        // 파일 디렉토리가 없으면 생성
+        File directory = new File(projectPath + fileDir);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        // 파일 저장
+        file.transferTo(new File(filePath));
     }
 }
