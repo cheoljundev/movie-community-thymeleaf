@@ -1,7 +1,6 @@
 package hello.moviecomm.board.repository;
 
 import hello.moviecomm.board.domain.Post;
-import hello.moviecomm.board.dto.PostModifyDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

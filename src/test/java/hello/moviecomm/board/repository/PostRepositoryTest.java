@@ -1,7 +1,6 @@
 package hello.moviecomm.board.repository;
 
 import hello.moviecomm.board.domain.Post;
-import hello.moviecomm.board.dto.PostModifyDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
