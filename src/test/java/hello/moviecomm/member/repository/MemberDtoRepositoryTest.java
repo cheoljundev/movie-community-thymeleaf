@@ -1,8 +1,7 @@
 package hello.moviecomm.member.repository;
 
-import hello.moviecomm.member.domain.Member;
 import hello.moviecomm.member.dto.MemberDto;
-import hello.moviecomm.member.repository.MemberRepository;
+import hello.moviecomm.member.domain.Member;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,42 +11,42 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Transactional
 @SpringBootTest
-class MemberRepositoryTest {
+class MemberDtoRepositoryTest {
     @Autowired
     private MemberRepository memberRepository;
 
     @Test
     void save() {
-        MemberDto member = MemberDto.builder()
+        Member member = Member.builder()
                 .memberId("user")
                 .name("김철수")
                 .password("1234")
                 .build();
-        MemberDto savedMember = memberRepository.save(member);
+        Member savedMember = memberRepository.save(member);
         System.out.println("savedMember = " + savedMember);
         assertThat(savedMember.getName()).isEqualTo("김철수");
     }
 
     @Test
     void findById() {
-        MemberDto member = MemberDto.builder()
+        Member member = Member.builder()
                 .memberId("user")
                 .name("김철수")
                 .password("1234")
                 .build();
         memberRepository.save(member);
-        Member findMember = memberRepository.findById("user");
-        assertThat(findMember.getName()).isEqualTo("김철수");
+        MemberDto findMemberDto = memberRepository.findById("user");
+        assertThat(findMemberDto.getName()).isEqualTo("김철수");
     }
 
     @Test
     void findAll() {
-        MemberDto member2 = MemberDto.builder()
+        Member member2 = Member.builder()
                 .memberId("user02")
                 .name("김철수")
                 .password("1234")
                 .build();
-        MemberDto member3 = MemberDto.builder()
+        Member member3 = Member.builder()
                 .memberId("user03")
                 .name("김영희")
                 .password("1234")

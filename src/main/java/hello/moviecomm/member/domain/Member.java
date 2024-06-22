@@ -1,18 +1,20 @@
 package hello.moviecomm.member.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.List;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Member {
-    private final Integer  memberNo;
-    private final String memberId;
-    private final String name;
-    private final String password;
-    private final Date createAt;
-    private final List<Authority> auths;
+    private Integer memberNo;
+    private  String memberId;
+    private  String name;
+    private  String password;
+    private  Date createAt;
 }

@@ -83,7 +83,7 @@ public class BoardController {
 
     @PostMapping("/write/{boardNo}")
     public String write(@ModelAttribute PostWriteDto post, @AuthenticationPrincipal CustomUserDetails user, @PathVariable("boardNo") Integer boardNo) throws IOException {
-        Integer memberNo = user.getMember().getMemberNo();
+        Integer memberNo = user.getMemberDto().getMemberNo();
         post.setMemberNo(memberNo);
         post.setBoardNo(boardNo);
         postService.save(post);

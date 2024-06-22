@@ -1,9 +1,7 @@
 package hello.moviecomm.member.dto;
 
 import hello.moviecomm.member.domain.Authority;
-import hello.moviecomm.member.domain.Member;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,18 +15,18 @@ import java.util.List;
 @ToString
 public class CustomUserDetails implements UserDetails {
 
-    private final Member member;
+    private final MemberDto memberDto;
     private final String name;
 
-    public CustomUserDetails(Member member) {
-        this.member = member;
-        this.name = member.getName();
+    public CustomUserDetails(MemberDto memberDto) {
+        this.memberDto = memberDto;
+        this.name = memberDto.getName();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> collection = new ArrayList<>();
-        List<Authority> auths = member.getAuths();
+        List<Authority> auths = memberDto.getAuths();
         auths.stream()
                 .map(Authority::getName)
                 .forEach(auth -> collection.add(new SimpleGrantedAuthority(auth)));
@@ -41,12 +39,12 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return member.getPassword();
+        return memberDto.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return member.getMemberId();
+        return memberDto.getMemberId();
     }
 
     @Override

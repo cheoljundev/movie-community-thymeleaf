@@ -3,7 +3,7 @@ package hello.moviecomm.board.service;
 import hello.moviecomm.board.dto.PostWriteDto;
 import hello.moviecomm.board.exception.AccessDeniedException;
 import hello.moviecomm.member.domain.Authority;
-import hello.moviecomm.member.domain.Member;
+import hello.moviecomm.member.dto.MemberDto;
 import hello.moviecomm.member.dto.CustomUserDetails;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -64,14 +64,14 @@ class PostServiceTest {
                         .description("관리자 권한")
                         .build()
         );
-        Member member = Member.builder()
+        MemberDto memberDto = MemberDto.builder()
                 .memberNo(999)
                 .memberId("test")
                 .name("test")
                 .password("test")
                 .auths(roles)
                 .build();
-        CustomUserDetails customUserDetails = new CustomUserDetails(member);
+        CustomUserDetails customUserDetails = new CustomUserDetails(memberDto);
 
         // when
         postService.remove(1, customUserDetails);
@@ -91,14 +91,14 @@ class PostServiceTest {
                         .description("일반 사용자 권한")
                         .build()
         );
-        Member member = Member.builder()
+        MemberDto memberDto = MemberDto.builder()
                 .memberNo(999)
                 .memberId("test")
                 .name("test")
                 .password("test")
                 .auths(roles)
                 .build();
-        CustomUserDetails customUserDetails = new CustomUserDetails(member);
+        CustomUserDetails customUserDetails = new CustomUserDetails(memberDto);
 
         // then
         Assertions.assertThatThrownBy(() -> postService.remove(1, customUserDetails))

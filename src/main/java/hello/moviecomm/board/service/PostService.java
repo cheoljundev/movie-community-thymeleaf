@@ -53,7 +53,7 @@ public class PostService {
         }
 
         Post post = findByNo(postNo);
-        Integer memberNo = customUserDetails.getMember().getMemberNo();
+        Integer memberNo = customUserDetails.getMemberDto().getMemberNo();
         boolean isAdmin = customUserDetails.hasRole("ROLE_ADMIN");
         if (post.getMemberNo() == memberNo || isAdmin) {
             postRepository.remove(postNo);

@@ -1,9 +1,7 @@
 package hello.moviecomm.member.repository;
 
-import hello.moviecomm.member.dto.MemberDto;
+import hello.moviecomm.member.domain.Member;
 import hello.moviecomm.member.domain.Role;
-import hello.moviecomm.member.repository.MemberRepository;
-import hello.moviecomm.member.repository.RoleMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,7 +20,7 @@ class RoleMapperTest {
     MemberRepository memberRepository;
     @Test
     void findByMemberNo() {
-        MemberDto member = MemberDto.builder()
+        Member member = Member.builder()
                 .memberId("user")
                 .name("김철수")
                 .password("1234")

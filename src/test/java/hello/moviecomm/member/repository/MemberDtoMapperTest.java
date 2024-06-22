@@ -1,7 +1,6 @@
 package hello.moviecomm.member.repository;
 
-import hello.moviecomm.member.dto.MemberDto;
-import hello.moviecomm.member.repository.MemberMapper;
+import hello.moviecomm.member.domain.Member;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,38 +12,38 @@ import static org.assertj.core.api.Assertions.*;
 
 @Transactional
 @SpringBootTest
-class MemberMapperTest {
+class MemberDtoMapperTest {
 
     @Autowired
     private MemberMapper memberMapper;
     @Test
     void findById() {
-        MemberDto member = MemberDto.builder()
+        Member member = Member.builder()
                 .memberId("user")
                 .name("김철수")
                 .password("1234")
                 .build();
         memberMapper.save(member);
-        MemberDto user = memberMapper.findById("user");
+        Member user = memberMapper.findById("user");
         assertThat(user.getName()).isEqualTo("김철수");
     }
 
     @Test
     void findByNo() {
-        MemberDto member = MemberDto.builder()
+        Member member = Member.builder()
                 .memberId("user")
                 .name("김철수")
                 .password("1234")
                 .build();
         memberMapper.save(member);
         Integer memberNo = memberMapper.findById("user").getMemberNo();
-        MemberDto user = memberMapper.findByNo(memberNo);
+        Member user = memberMapper.findByNo(memberNo);
         assertThat(user.getName()).isEqualTo("김철수");
     }
 
     @Test
     void save() {
-        MemberDto member = MemberDto.builder()
+        Member member = Member.builder()
                 .memberId("user")
                 .name("김철수")
                 .password("1234")
@@ -55,7 +54,7 @@ class MemberMapperTest {
 
     @Test
     void saveRole() {
-        MemberDto member = MemberDto.builder()
+        Member member = Member.builder()
                 .memberId("user")
                 .name("김철수")
                 .password("1234")
@@ -67,19 +66,19 @@ class MemberMapperTest {
 
     @Test
     void findAll() {
-        MemberDto member2 = MemberDto.builder()
+        Member member2 = Member.builder()
                 .memberId("user02")
                 .name("김철수")
                 .password("1234")
                 .build();
 
-        MemberDto member3 = MemberDto.builder()
+        Member member3 = Member.builder()
                 .memberId("user03")
                 .name("김영희")
                 .password("1234")
                 .build();
 
-        MemberDto member4 = MemberDto.builder()
+        Member member4 = Member.builder()
                 .memberId("user04")
                 .name("김영수")
                 .password("1234")
@@ -88,7 +87,7 @@ class MemberMapperTest {
         memberMapper.save(member2);
         memberMapper.save(member3);
         memberMapper.save(member4);
-        List<MemberDto> members = memberMapper.findAll();
+        List<Member> members = memberMapper.findAll();
         assertThat(members.size()).isEqualTo(5); // 미리 세팅된 테스트 계정 2개 포함
     }
 

@@ -1,6 +1,6 @@
 package hello.moviecomm.member.controller;
 
-import hello.moviecomm.member.dto.MemberDto;
+import hello.moviecomm.member.domain.Member;
 import hello.moviecomm.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -22,12 +22,12 @@ public class MemberController {
 
     @GetMapping("/join")
     public String joinForm(Model model) {
-        model.addAttribute("member", new MemberDto());
+        model.addAttribute("member", new Member());
         return "member/join";
     }
 
     @PostMapping("/join")
-    public String join(@ModelAttribute MemberDto member) {
+    public String join(@ModelAttribute Member member) {
         memberService.save(member);
         return "redirect:/login";
     }

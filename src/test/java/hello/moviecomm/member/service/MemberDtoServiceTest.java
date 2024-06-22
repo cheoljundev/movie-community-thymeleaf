@@ -1,24 +1,22 @@
 package hello.moviecomm.member.service;
 
-import hello.moviecomm.member.dto.MemberDto;
+import hello.moviecomm.member.domain.Member;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 @Transactional
-class MemberServiceTest {
+class MemberDtoServiceTest {
 
     @Autowired
     private MemberService memberService;
 
     @Test
     void save() {
-        memberService.save(MemberDto.builder()
+        memberService.save(Member.builder()
                 .memberId("user")
                 .name("김철수")
                 .password("1234")
@@ -28,7 +26,7 @@ class MemberServiceTest {
 
     @Test
     void findById() {
-        memberService.save(MemberDto.builder()
+        memberService.save(Member.builder()
                 .memberId("user")
                 .name("김철수")
                 .password("1234")

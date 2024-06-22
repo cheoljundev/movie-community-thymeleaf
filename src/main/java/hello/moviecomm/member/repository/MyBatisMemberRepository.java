@@ -1,8 +1,8 @@
 package hello.moviecomm.member.repository;
 
 import hello.moviecomm.member.domain.Authority;
-import hello.moviecomm.member.domain.Member;
 import hello.moviecomm.member.dto.MemberDto;
+import hello.moviecomm.member.domain.Member;
 import hello.moviecomm.member.domain.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,25 +20,25 @@ public class MyBatisMemberRepository  implements MemberRepository{
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public MemberDto save(MemberDto inputMemberDto) {
-        MemberDto memberDto = MemberDto.builder()
-                .memberId(inputMemberDto.getMemberId())
-                .name(inputMemberDto.getName())
-                .password(bCryptPasswordEncoder.encode(inputMemberDto.getPassword()))
+    public Member save(Member inputMember) {
+        Member member = Member.builder()
+                .memberId(inputMember.getMemberId())
+                .name(inputMember.getName())
+                .password(bCryptPasswordEncoder.encode(inputMember.getPassword()))
                 .build();
-        memberMapper.save(memberDto);
-        Integer memberNo = memberMapper.findById(memberDto.getMemberId()).getMemberNo();
+        memberMapper.save(member);
+        Integer memberNo = memberMapper.findById(member.getMemberId()).getMemberNo();
         memberMapper.saveRole(memberNo, 1);
-        return memberDto;
+        return member;
     }
 
     @Override
-    public Member findById(String memberId) {
-        MemberDto memberDto = memberMapper.findById(memberId);
-        if (memberDto == null) {
+    public MemberDto findById(String memberId) {
+        Member member = memberMapper.findById(memberId);
+        if (member == null) {
             return null;
         }
-        List<Role> roles = roleMapper.findByMemberNo(memberDto.getMemberNo());
+        List<Role> roles = roleMapper.findByMemberNo(member.getMemberNo());
         List<Authority> auths = new ArrayList<>();
 //        for (Role role : roles) {
 //            Authority authority = authorityMapper.findByAuthorityCode(role.getAuthorityCode());
@@ -47,56 +47,56 @@ public class MyBatisMemberRepository  implements MemberRepository{
         roles.stream()
                 .map(role -> authorityMapper.findByAuthorityCode(role.getAuthorityCode()))
                 .forEach(auths::add);
-        return Member.builder()
-                .memberNo(memberDto.getMemberNo())
-                .memberId(memberDto.getMemberId())
-                .name(memberDto.getName())
-                .password(memberDto.getPassword())
-                .createAt(memberDto.getCreateAt())
+        return MemberDto.builder()
+                .memberNo(member.getMemberNo())
+                .memberId(member.getMemberId())
+                .name(member.getName())
+                .password(member.getPassword())
+                .createAt(member.getCreateAt())
                 .auths(auths)
                 .build();
     }
 
     @Override
-    public Member findByNo(Integer memberNo) {
-        MemberDto memberDto = memberMapper.findByNo(memberNo);
-        if (memberDto == null) {
+    public MemberDto findByNo(Integer memberNo) {
+        Member member = memberMapper.findByNo(memberNo);
+        if (member == null) {
             return null;
         }
-        List<Role> roles = roleMapper.findByMemberNo(memberDto.getMemberNo());
+        List<Role> roles = roleMapper.findByMemberNo(member.getMemberNo());
         List<Authority> auths = new ArrayList<>();
         roles.stream()
                 .map(role -> authorityMapper.findByAuthorityCode(role.getAuthorityCode()))
                 .forEach(auths::add);
-        return Member.builder()
-                .memberNo(memberDto.getMemberNo())
-                .memberId(memberDto.getMemberId())
-                .name(memberDto.getName())
-                .password(memberDto.getPassword())
-                .createAt(memberDto.getCreateAt())
+        return MemberDto.builder()
+                .memberNo(member.getMemberNo())
+                .memberId(member.getMemberId())
+                .name(member.getName())
+                .password(member.getPassword())
+                .createAt(member.getCreateAt())
                 .auths(auths)
                 .build();
     }
 
     @Override
-    public List<Member> findAll() {
-        List<MemberDto> originMemberDtos = memberMapper.findAll();
-        List<Member> members = new ArrayList<>();
-        for (MemberDto memberDto : originMemberDtos) {
-            List<Role> roles = roleMapper.findByMemberNo(memberDto.getMemberNo());
+    public List<MemberDto> findAll() {
+        List<Member> originMembers = memberMapper.findAll();
+        List<MemberDto> memberDtos = new ArrayList<>();
+        for (Member member : originMembers) {
+            List<Role> roles = roleMapper.findByMemberNo(member.getMemberNo());
             List<Authority> auths = new ArrayList<>();
             roles.stream()
                     .map(role -> authorityMapper.findByAuthorityCode(role.getAuthorityCode()))
                     .forEach(auths::add);
-            members.add(Member.builder()
-                    .memberNo(memberDto.getMemberNo())
-                    .memberId(memberDto.getMemberId())
-                    .name(memberDto.getName())
-                    .password(memberDto.getPassword())
-                    .createAt(memberDto.getCreateAt())
+            memberDtos.add(MemberDto.builder()
+                    .memberNo(member.getMemberNo())
+                    .memberId(member.getMemberId())
+                    .name(member.getName())
+                    .password(member.getPassword())
+                    .createAt(member.getCreateAt())
                     .auths(auths)
                     .build());
         }
-        return members;
+        return memberDtos;
     }
 }
