@@ -1,10 +1,8 @@
 package hello.moviecomm.board.repository;
 
-import hello.moviecomm.board.dto.DbListPostDto;
-import hello.moviecomm.board.dto.DbPostDto;
-import hello.moviecomm.board.dto.ListPostDto;
-import hello.moviecomm.board.dto.ModifyPostDto;
-import hello.moviecomm.member.repository.MemberRepository;
+import hello.moviecomm.board.domain.Post;
+import hello.moviecomm.board.dto.PostListDto;
+import hello.moviecomm.board.dto.PostModifyDto;
 import hello.moviecomm.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -18,22 +16,22 @@ public class MyBatisPostRepository implements PostRepository{
     private final PostMapper postMapper;
     private final MemberService memberService;
     @Override
-    public void save(DbPostDto dbPostDto) {
-        postMapper.save(dbPostDto);
+    public void save(Post post) {
+        postMapper.save(post);
     }
 
     @Override
-    public DbPostDto findByNo(Integer postNo) {
+    public Post findByNo(Integer postNo) {
         return postMapper.findByNo(postNo);
     }
 
     @Override
-    public List<ListPostDto> findAll(Integer boardNo) {
-        List<DbListPostDto> dbListPostDtoList = postMapper.findAll(boardNo);
-        List<ListPostDto> listPostDtoList = new ArrayList<>();
+    public List<PostListDto> findAll(Integer boardNo) {
+        List<Post> dbListPostDtoList = postMapper.findAll(boardNo);
+        List<PostListDto> listPostDtoList = new ArrayList<>();
         dbListPostDtoList.stream().forEach(dbListPostDto -> {
             Integer memberNo = dbListPostDto.getMemberNo();
-            listPostDtoList.add(ListPostDto.builder()
+            listPostDtoList.add(PostListDto.builder()
                     .postNo(dbListPostDto.getPostNo())
                     .title(dbListPostDto.getTitle())
                     .memberName(memberService.findByNo(memberNo).getName())
@@ -49,7 +47,7 @@ public class MyBatisPostRepository implements PostRepository{
     }
 
     @Override
-    public void modify(ModifyPostDto modifyPostDto, Integer postNo) {
-        postMapper.modify(modifyPostDto, postNo);
+    public void modify(PostModifyDto postModifyDto, Integer postNo) {
+        postMapper.modify(postModifyDto, postNo);
     }
 }

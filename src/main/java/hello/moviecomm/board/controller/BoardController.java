@@ -1,6 +1,7 @@
 package hello.moviecomm.board.controller;
 
 import hello.moviecomm.board.domain.Board;
+import hello.moviecomm.board.domain.Post;
 import hello.moviecomm.board.dto.*;
 import hello.moviecomm.board.service.BoardService;
 import hello.moviecomm.board.service.PostService;
@@ -12,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.List;
 
 @Slf4j
@@ -47,7 +46,7 @@ public class BoardController {
             throw new NotFoundException("게시판 번호 " + boardNo +" 게시판이 존재하지 않습니다.");
         }
         String boardName = boardService.findBoardNameByNo(boardNo);
-        List<ListPostDto> postList = postService.findAll(boardNo);
+        List<PostListDto> postList = postService.findAll(boardNo);
         model.addAttribute("boardNo", boardNo);
         model.addAttribute("boardName", boardName);
         model.addAttribute("postList", postList);
@@ -56,10 +55,10 @@ public class BoardController {
 
     @GetMapping("/{boardNo}/detail")
     public String detail(@PathVariable("boardNo") Integer boardNo, @RequestParam("postNo") Integer postNo, Model model) {
-        DbPostDto post = postService.findByNo(postNo);
+        Post post = postService.findByNo(postNo);
         String boardName = boardService.findBoardNameByNo(boardNo);
         String memberName = memberService.findByNo(post.getMemberNo()).getName();
-        DetailPostDto detailPost = DetailPostDto.builder()
+        PostDetailDto detailPost = PostDetailDto.builder()
                 .postNo(post.getPostNo())
                 .title(post.getTitle())
                 .content(post.getContent())
@@ -76,14 +75,14 @@ public class BoardController {
 
     @GetMapping("/write")
     public String writeForm(@RequestParam("boardNo") Integer boardNo, Model model){
-        WritePostDto post = new WritePostDto();
+        PostWriteDto post = new PostWriteDto();
         model.addAttribute("boardNo", boardNo);
         model.addAttribute("post", post);
         return "board/write";
     }
 
     @PostMapping("/write/{boardNo}")
-    public String write(@ModelAttribute WritePostDto post, @AuthenticationPrincipal CustomUserDetails user, @PathVariable("boardNo") Integer boardNo) throws IOException {
+    public String write(@ModelAttribute PostWriteDto post, @AuthenticationPrincipal CustomUserDetails user, @PathVariable("boardNo") Integer boardNo) throws IOException {
         Integer memberNo = user.getMember().getMemberNo();
         post.setMemberNo(memberNo);
         post.setBoardNo(boardNo);
@@ -136,4 +135,15 @@ public class BoardController {
         postService.remove(postNo, user);
         return "redirect:/board/" + boardNo;
     }
+
+//    @GetMapping("/modify/{boardNo}/{postNo}")
+//    public String modifyForm(
+//                            @PathVariable("boardNo") Integer boardNo,
+//                             @PathVariable("postNo") Integer postNo,
+//                             Model model) {
+//        Post post = postService.findByNo(postNo);
+//        model.addAttribute("boardNo", boardNo);
+//        model.addAttribute("post", modifyPost);
+//        return "board/modify";
+//    }
 }

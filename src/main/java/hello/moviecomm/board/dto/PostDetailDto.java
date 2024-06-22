@@ -8,10 +8,13 @@ import java.util.Date;
 
 @Data
 @Builder
-public class ListPostDto {
+public class PostDetailDto {
     private final Integer postNo;
     private final String title;
-    private final String memberName;
+    private final String content;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private final Date createAt;
+    private final String fileName;
+    private final String storeFileName;
+    private final String memberName;
 }

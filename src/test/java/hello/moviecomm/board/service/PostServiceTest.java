@@ -1,7 +1,6 @@
 package hello.moviecomm.board.service;
 
-import hello.moviecomm.board.dto.DbPostDto;
-import hello.moviecomm.board.dto.WritePostDto;
+import hello.moviecomm.board.dto.PostWriteDto;
 import hello.moviecomm.board.exception.AccessDeniedException;
 import hello.moviecomm.member.domain.Authority;
 import hello.moviecomm.member.domain.Member;
@@ -16,8 +15,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 @Transactional
 class PostServiceTest {
@@ -27,7 +24,7 @@ class PostServiceTest {
 
     @Test
     void save() throws IOException {
-        WritePostDto post = WritePostDto.builder()
+        PostWriteDto post = PostWriteDto.builder()
                 .boardNo(1)
                 .title("title")
                 .content("content")

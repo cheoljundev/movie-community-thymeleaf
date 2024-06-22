@@ -1,20 +1,21 @@
 package hello.moviecomm.board.domain;
 
-import hello.moviecomm.member.domain.Member;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.util.Date;
 
+
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Post {
-    private final Integer postNo;
-    private final String title;
-    private final String content;
-    private final Date createAt;
-    private final String fileName;
-    private final String StoreFileName;
-    private final Member member;
-    private final Board board;
+    private Integer postNo;
+    private String title;
+    private String content;
+    private Date createAt;
+    private String fileName;
+    private String storeFileName;
+    private Integer memberNo;
+    private Integer boardNo;
 }

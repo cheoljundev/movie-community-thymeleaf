@@ -1,7 +1,7 @@
 <!--mybatis mapper meta data  setting-->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="hello.moviecomm.board.repository.PostMapper">
-    <insert id="save" parameterType="hello.moviecomm.board.dto.DbPostDto">
+    <insert id="save" parameterType="hello.moviecomm.board.domain.Post">
         INSERT INTO post
         (post_no, title, content, file_name, store_file_name, member_no, board_no)
         VALUES
@@ -13,7 +13,7 @@
          #{memberNo},
          #{boardNo})
     </insert>
-    <select id="findByNo" resultType="hello.moviecomm.board.dto.DbPostDto">
+    <select id="findByNo" resultType="hello.moviecomm.board.domain.Post">
         SELECT
             post_no,
             title,
@@ -26,12 +26,16 @@
         FROM post
         WHERE post_no = #{postNo}
     </select>
-    <select id="findAll" resultType="hello.moviecomm.board.dto.DbListPostDto">
+    <select id="findAll" resultType="hello.moviecomm.board.domain.Post">
         SELECT
             post_no,
             title,
+            content,
             create_at,
-            member_no
+            file_name,
+            store_file_name,
+            member_no,
+            board_no
         FROM post
         WHERE  board_no = #{boardNo}
         ORDER BY post_no DESC
@@ -40,13 +44,13 @@
         DELETE FROM post
         WHERE post_no = #{postNo}
     </update>
-    <update id ="modify" parameterType="hello.moviecomm.board.dto.ModifyPostDto"  >
+    <update id ="modify" parameterType="hello.moviecomm.board.dto.PostModifyDto"  >
         update  post
         set
-            title = #{modifyPostDto.title},
-            content = #{modifyPostDto.content},
-            file_name = #{modifyPostDto.fileName, jdbcType=VARCHAR},
-            store_file_name = #{modifyPostDto.storeFileName, jdbcType=VARCHAR}
+            title = #{postModifyDto.title},
+            content = #{postModifyDto.content},
+            file_name = #{postModifyDto.fileName, jdbcType=VARCHAR},
+            store_file_name = #{postModifyDto.storeFileName, jdbcType=VARCHAR}
         where post_no = #{postNo}
     </update>
 </mapper>

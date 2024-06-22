@@ -1,9 +1,7 @@
 package hello.moviecomm.board.repository;
 
-import hello.moviecomm.board.dto.DbListPostDto;
-import hello.moviecomm.board.dto.DbPostDto;
-import hello.moviecomm.board.dto.DetailPostDto;
-import hello.moviecomm.board.dto.ModifyPostDto;
+import hello.moviecomm.board.domain.Post;
+import hello.moviecomm.board.dto.PostModifyDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,12 +9,12 @@ import java.util.List;
 
 @Mapper
 public interface PostMapper {
-    void save(DbPostDto dbPostDto);
-    DbPostDto findByNo(Integer postNo);
-    List<DbListPostDto> findAll(Integer boardNo);
+    void save(Post post);
+    Post findByNo(Integer postNo);
+    List<Post> findAll(Integer boardNo);
 
     void remove(Integer postNo);
 
-    void modify(@Param("modifyPostDto") ModifyPostDto modifyPostDto, @Param("postNo") Integer postNo);
+    void modify(@Param("modifyPostDto") PostModifyDto postModifyDto, @Param("postNo") Integer postNo);
 
 }

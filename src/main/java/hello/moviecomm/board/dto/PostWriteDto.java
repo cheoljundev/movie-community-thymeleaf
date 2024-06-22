@@ -12,7 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class WritePostDto {
+public class PostWriteDto {
     private Integer postNo;
     private String title;
     private String content;

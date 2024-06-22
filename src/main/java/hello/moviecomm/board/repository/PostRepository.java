@@ -1,16 +1,15 @@
 package hello.moviecomm.board.repository;
 
-import hello.moviecomm.board.dto.DbListPostDto;
-import hello.moviecomm.board.dto.DbPostDto;
-import hello.moviecomm.board.dto.ListPostDto;
-import hello.moviecomm.board.dto.ModifyPostDto;
+import hello.moviecomm.board.domain.Post;
+import hello.moviecomm.board.dto.PostListDto;
+import hello.moviecomm.board.dto.PostModifyDto;
 
 import java.util.List;
 
 public interface PostRepository {
-    void save(DbPostDto dbPostDto);
-    DbPostDto findByNo(Integer postNo);
-    List<ListPostDto> findAll(Integer boardNo);
+    void save(Post post);
+    Post findByNo(Integer postNo);
+    List<PostListDto> findAll(Integer boardNo);
     void remove(Integer postNo);
-    void modify(ModifyPostDto modifyPostDto, Integer postNo);
+    void modify(PostModifyDto postModifyDto, Integer postNo);
 }

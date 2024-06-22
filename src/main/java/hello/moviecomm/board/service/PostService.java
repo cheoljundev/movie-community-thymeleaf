@@ -1,8 +1,8 @@
 package hello.moviecomm.board.service;
 
-import hello.moviecomm.board.dto.DbPostDto;
-import hello.moviecomm.board.dto.ListPostDto;
-import hello.moviecomm.board.dto.WritePostDto;
+import hello.moviecomm.board.domain.Post;
+import hello.moviecomm.board.dto.PostListDto;
+import hello.moviecomm.board.dto.PostWriteDto;
 import hello.moviecomm.board.exception.AccessDeniedException;
 import hello.moviecomm.board.repository.PostRepository;
 import hello.moviecomm.member.dto.CustomUserDetails;
@@ -22,27 +22,27 @@ public class PostService {
     private final PostRepository postRepository;
     String projectPath = System.getProperty("user.dir");
     @Value("${file.dir}") String fileDir;
-    public void save(WritePostDto writePostDto) throws IOException {
-        MultipartFile file = writePostDto.getFile();
-        DbPostDto dbPostDto = DbPostDto.builder()
-                .title(writePostDto.getTitle())
-                .content(writePostDto.getContent())
-                .memberNo(writePostDto.getMemberNo())
-                .boardNo(writePostDto.getBoardNo())
+    public void save(PostWriteDto postWriteDto) throws IOException {
+        MultipartFile file = postWriteDto.getFile();
+        Post post = Post.builder()
+                .title(postWriteDto.getTitle())
+                .content(postWriteDto.getContent())
+                .memberNo(postWriteDto.getMemberNo())
+                .boardNo(postWriteDto.getBoardNo())
                 .build();
 
         if (isFisFileValidile(file)) {
-            saveFile(file, dbPostDto);
+            saveFile(file, post);
         }
 
-        postRepository.save(dbPostDto);
+        postRepository.save(post);
     }
 
-    public DbPostDto findByNo(Integer postNo) {
+    public Post findByNo(Integer postNo) {
         return postRepository.findByNo(postNo);
     }
 
-    public List<ListPostDto> findAll(Integer boardNo) {
+    public List<PostListDto> findAll(Integer boardNo) {
         return postRepository.findAll(boardNo);
     }
 
@@ -52,7 +52,7 @@ public class PostService {
             throw new AccessDeniedException("게시글 삭제 권한이 없습니다.");
         }
 
-        DbPostDto post = findByNo(postNo);
+        Post post = findByNo(postNo);
         Integer memberNo = customUserDetails.getMember().getMemberNo();
         boolean isAdmin = customUserDetails.hasRole("ROLE_ADMIN");
         if (post.getMemberNo() == memberNo || isAdmin) {
@@ -65,7 +65,7 @@ public class PostService {
     private static boolean isFisFileValidile(MultipartFile file) {
         return file != null && !file.isEmpty();
     }
-    private void saveFile(MultipartFile file, DbPostDto dbPostDto) throws IOException {
+    private void saveFile(MultipartFile file, Post post) throws IOException {
         // 파일 이름 추출
         String fileName = file.getOriginalFilename();
 
@@ -78,8 +78,8 @@ public class PostService {
         String storeFileName = uuid + "." + ext;
 
         // dbPostDto에 파일 정보 저장
-        dbPostDto.setFileName(fileName);
-        dbPostDto.setStoreFileName(storeFileName);
+        post.setFileName(fileName);
+        post.setStoreFileName(storeFileName);
 
         // 파일 저장 경로
         String filePath = projectPath + fileDir + storeFileName;

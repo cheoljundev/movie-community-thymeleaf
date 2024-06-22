@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ModifyPostDto {
+public class PostModifyDto {
     private String title;
     private String content;
     private String fileName;
