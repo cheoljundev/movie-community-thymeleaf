@@ -2,6 +2,7 @@ package hello.moviecomm.board.service;
 
 import hello.moviecomm.board.domain.Post;
 import hello.moviecomm.board.dto.PostListDto;
+import hello.moviecomm.board.dto.PostModifyDto;
 import hello.moviecomm.board.dto.PostWriteDto;
 import hello.moviecomm.board.exception.AccessDeniedException;
 import hello.moviecomm.board.repository.PostRepository;
@@ -48,23 +49,44 @@ public class PostService {
 
     public void remove(Integer postNo, CustomUserDetails customUserDetails) {
 
-        if (customUserDetails == null) {
+        if (isLogin(customUserDetails)) {
             throw new AccessDeniedException("게시글 삭제 권한이 없습니다.");
         }
 
-        Post post = findByNo(postNo);
-        Integer memberNo = customUserDetails.getMemberDto().getMemberNo();
-        boolean isAdmin = customUserDetails.hasRole("ROLE_ADMIN");
-        if (post.getMemberNo() == memberNo || isAdmin) {
+        if (isPostOwner(customUserDetails, postNo) || isAdmin(customUserDetails)) {
             postRepository.remove(postNo);
         } else {
             throw new AccessDeniedException("게시글 삭제 권한이 없습니다.");
         }
     }
 
+    public void modify(PostModifyDto postModifyDto, Integer postNo, CustomUserDetails customUserDetails) throws IOException{
+
+        if (isLogin(customUserDetails)) {
+            throw new AccessDeniedException("게시글 수정 권한이 없습니다.");
+        }
+
+        if (isPostOwner(customUserDetails, postNo)) {
+            MultipartFile file = postModifyDto.getFile();
+            Post post = postRepository.findByNo(postNo);
+            post.setTitle(postModifyDto.getTitle());
+            post.setContent(postModifyDto.getContent());
+
+            if (isFisFileValidile(file)) {
+                saveFile(file, post);
+            }
+
+            postRepository.modify(post, postNo);
+        } else {
+            throw new AccessDeniedException("게시글 수정 권한이 없습니다.");
+        }
+
+    }
+
     private static boolean isFisFileValidile(MultipartFile file) {
         return file != null && !file.isEmpty();
     }
+
     private void saveFile(MultipartFile file, Post post) throws IOException {
         // 파일 이름 추출
         String fileName = file.getOriginalFilename();
@@ -92,5 +114,19 @@ public class PostService {
 
         // 파일 저장
         file.transferTo(new File(filePath));
+    }
+
+    private boolean isPostOwner(CustomUserDetails customUserDetails, Integer postNo) {
+        Post post = findByNo(postNo);
+        Integer memberNo = customUserDetails.getMemberDto().getMemberNo();
+        return post.getMemberNo() == memberNo;
+    }
+
+    private static boolean isAdmin(CustomUserDetails customUserDetails) {
+        return customUserDetails.hasRole("ROLE_ADMIN");
+    }
+
+    private static boolean isLogin(CustomUserDetails customUserDetails) {
+        return customUserDetails == null;
     }
 }

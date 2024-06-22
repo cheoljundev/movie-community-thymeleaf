@@ -61,7 +61,7 @@
             <a href="/board/1" th:href="@{/board/{boardNo} (boardNo=${boardNo})}" class="btn btn-primary">목록</a>
             <a href="/board/delete/1"
                sec:authorize="isAuthenticated()"
-               th:if="${#authentication.principal.name == post.memberName or #authentication.principal.hasRole('ROLE_ADMIN')}"
+               th:if="${#authentication.principal.name == post.memberName}"
                th:href="@{/board/modify/{boardNo}/{postNo} (boardNo=${boardNo}, postNo=${post.postNo})}"
                class="btn btn-warning">수정</a>
             <a href="/board/delete/1"

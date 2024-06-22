@@ -15,6 +15,6 @@ public interface PostMapper {
 
     void remove(Integer postNo);
 
-    void modify(@Param("modifyPostDto") PostModifyDto postModifyDto, @Param("postNo") Integer postNo);
+    void modify(@Param("updatedPost") Post updatedPost, @Param("postNo") Integer postNo);
 
 }

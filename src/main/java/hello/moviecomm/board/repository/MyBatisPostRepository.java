@@ -47,7 +47,7 @@ public class MyBatisPostRepository implements PostRepository{
     }
 
     @Override
-    public void modify(PostModifyDto postModifyDto, Integer postNo) {
-        postMapper.modify(postModifyDto, postNo);
+    public void modify(Post updatedPost, Integer postNo) {
+        postMapper.modify(updatedPost, postNo);
     }
 }

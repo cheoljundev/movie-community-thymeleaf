@@ -50,19 +50,19 @@ class PostMapperTest {
         Assertions.assertThat(post).isNull();
     }
 
-//    @Test
-//    void modify() {
-//        PostModifyDto postModifyDto = PostModifyDto.builder()
-//                .title("수정된 제목")
-//                .content("수정된 내용")
-//                .fileName(null)
-//                .storeFileName(null)
-//                .build();
-//        postMapper.modify(postModifyDto, 1);
-//        Post post = postMapper.findByNo(1);
-//        Assertions.assertThat(post.getTitle()).isEqualTo("수정된 제목");
-//        Assertions.assertThat(post.getContent()).isEqualTo("수정된 내용");
-//        Assertions.assertThat(post.getFileName()).isNull();
-//        Assertions.assertThat(post.getStoreFileName()).isNull();
-//    }
+    @Test
+    void modify() {
+        Post updatedPost = Post.builder()
+                .title("수정 제목")
+                .content("수정 내용")
+                .fileName(null)
+                .storeFileName(null)
+                .build();
+        postMapper.modify(updatedPost, 1);
+        Post post = postMapper.findByNo(1);
+        Assertions.assertThat(post.getTitle()).isEqualTo("수정 제목");
+        Assertions.assertThat(post.getContent()).isEqualTo("수정 내용");
+        Assertions.assertThat(post.getFileName()).isNull();
+        Assertions.assertThat(post.getStoreFileName()).isNull();
+    }
 }

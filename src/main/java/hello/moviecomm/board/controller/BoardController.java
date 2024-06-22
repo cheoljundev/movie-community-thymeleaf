@@ -20,6 +20,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.IOException;
@@ -136,14 +137,34 @@ public class BoardController {
         return "redirect:/board/" + boardNo;
     }
 
-//    @GetMapping("/modify/{boardNo}/{postNo}")
-//    public String modifyForm(
-//                            @PathVariable("boardNo") Integer boardNo,
-//                             @PathVariable("postNo") Integer postNo,
-//                             Model model) {
-//        Post post = postService.findByNo(postNo);
-//        model.addAttribute("boardNo", boardNo);
-//        model.addAttribute("post", modifyPost);
-//        return "board/modify";
-//    }
+    @GetMapping("/modify/{boardNo}/{postNo}")
+    public String modifyForm(
+                            @PathVariable("boardNo") Integer boardNo,
+                             @PathVariable("postNo") Integer postNo,
+                             Model model) {
+        Post post = postService.findByNo(postNo);
+        PostModifyDto modifyPost = PostModifyDto.builder()
+                .title(post.getTitle())
+                .content(post.getContent())
+                .build();
+        String boardName = boardService.findBoardNameByNo(boardNo);
+        model.addAttribute("boardName", boardName);
+        model.addAttribute("boardNo", boardNo);
+        model.addAttribute("post", modifyPost);
+        return "board/modify";
+    }
+
+    @PostMapping("/modify/{boardNo}/{postNo}")
+    public String modify(
+            @ModelAttribute PostModifyDto postModifyDto,
+            @PathVariable("boardNo") Integer boardNo,
+            @PathVariable("postNo") Integer postNo,
+            @AuthenticationPrincipal CustomUserDetails user,
+            RedirectAttributes redirectAttributes) throws IOException {
+
+        postService.modify(postModifyDto, postNo, user);
+        redirectAttributes.addAttribute("boardNo", boardNo);
+        redirectAttributes.addAttribute("postNo", postNo);
+        return "redirect:/board/{boardNo}/detail?postNo={postNo}";
+    }
 }

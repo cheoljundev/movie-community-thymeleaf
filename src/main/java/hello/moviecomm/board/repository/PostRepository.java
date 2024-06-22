@@ -11,5 +11,5 @@ public interface PostRepository {
     Post findByNo(Integer postNo);
     List<PostListDto> findAll(Integer boardNo);
     void remove(Integer postNo);
-    void modify(PostModifyDto postModifyDto, Integer postNo);
+    void modify(Post updatedPost, Integer postNo);
 }
