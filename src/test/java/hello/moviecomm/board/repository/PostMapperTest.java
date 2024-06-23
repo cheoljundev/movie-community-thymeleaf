@@ -32,14 +32,14 @@ class PostMapperTest {
     @Test
     void findByNo() {
         Post post = postMapper.findByNo(1);
-        Assertions.assertThat(post.getTitle()).isEqualTo("테스트글");
+        Assertions.assertThat(post.getTitle()).isEqualTo("테스트글 1");
     }
 
     @Test
     void findAll() {
         List<Post> list = postMapper.findAll(1);
-        Post post = list.get(0);
-        Assertions.assertThat(post.getTitle()).isEqualTo("테스트글");
+        int size = list.size();
+        Assertions.assertThat(size).isEqualTo(100);
     }
 
     @Test

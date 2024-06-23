@@ -1,11 +1,14 @@
 package hello.moviecomm.board.repository;
 
 import hello.moviecomm.board.domain.Post;
+import hello.moviecomm.board.dto.PostListDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @SpringBootTest
 @Transactional
@@ -28,14 +31,15 @@ class PostRepositoryTest {
 
     @Test
     void findByNo() {
-        postRepository.findByNo(1);
-        Assertions.assertThat(postRepository.findByNo(1).getTitle()).isEqualTo("테스트글");
+        Post post = postRepository.findByNo(1);
+        Assertions.assertThat(post.getTitle()).isEqualTo("테스트글 1");
     }
 
     @Test
     void findAll() {
-        postRepository.findAll(1);
-        Assertions.assertThat(postRepository.findAll(1).size()).isEqualTo(1);
+        List<PostListDto> list = postRepository.findAll(1);
+        int size = list.size();
+        Assertions.assertThat(size).isEqualTo(100);
     }
 
     @Test

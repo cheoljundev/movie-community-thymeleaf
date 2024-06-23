@@ -1,6 +1,7 @@
 package hello.moviecomm.board.service;
 
 import hello.moviecomm.board.domain.Post;
+import hello.moviecomm.board.dto.PostListDto;
 import hello.moviecomm.board.dto.PostModifyDto;
 import hello.moviecomm.board.dto.PostWriteDto;
 import hello.moviecomm.board.exception.AccessDeniedException;
@@ -43,13 +44,14 @@ class PostServiceTest {
     @Test
     void findByNo() {
         postService.findByNo(1);
-        Assertions.assertThat(postService.findByNo(1).getTitle()).isEqualTo("테스트글");
+        Assertions.assertThat(postService.findByNo(1).getTitle()).isEqualTo("테스트글 1");
     }
 
     @Test
     void findAll() {
-        postService.findAll(1);
-        Assertions.assertThat(postService.findAll(1).size()).isEqualTo(1);
+        List<PostListDto> list = postService.findAll(1);
+        int size = list.size();
+        Assertions.assertThat(list.size()).isEqualTo(100);
     }
 
     @Test
