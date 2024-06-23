@@ -28,4 +28,10 @@ class BoardRepositoryTest {
         String name = boards.get(0).getName();
         Assertions.assertThat(name).isEqualTo("영화리뷰 게시판");
     }
+
+    @Test
+    void getPages() {
+        Integer pages = boardRepository.getPages(1, 10);
+        Assertions.assertThat(pages).isEqualTo(1);
+    }
 }

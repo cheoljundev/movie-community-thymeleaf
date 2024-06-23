@@ -20,4 +20,10 @@ public class MyBatisBoardRepository implements BoardRepository{
     public List<Board> findAllBoard() {
         return boardMapper.findAll();
     }
+
+    @Override
+    public Integer getPages(Integer boardNo, Integer maxPostView) {
+        Integer postsCount = boardMapper.findCountByNo(boardNo);
+        return (int) Math.ceil((double) postsCount / maxPostView);
+    }
 }

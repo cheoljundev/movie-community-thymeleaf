@@ -7,4 +7,5 @@ import java.util.List;
 public interface BoardRepository {
     String findBoardNameByNo(Integer boardNo);
     List<Board> findAllBoard();
+    Integer getPages(Integer boardNo, Integer maxPostView);
 }

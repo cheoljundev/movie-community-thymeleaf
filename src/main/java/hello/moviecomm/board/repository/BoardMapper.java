@@ -9,4 +9,5 @@ import java.util.List;
 public interface BoardMapper {
     String findNameByNo(Integer boardNo);
     List<Board> findAll();
+    Integer findCountByNo(Integer boardNo);
 }

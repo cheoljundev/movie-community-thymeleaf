@@ -20,4 +20,7 @@ public class BoardService {
         return boardRepository.findAllBoard();
     }
 
+    public Integer getPages(Integer boardNo, Integer maxPostView) {
+        return boardRepository.getPages(boardNo, maxPostView);
+    }
 }

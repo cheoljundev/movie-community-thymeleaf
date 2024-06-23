@@ -27,4 +27,10 @@ class boardMapperTest {
         String name = boards.get(0).getName();
         Assertions.assertThat(name).isEqualTo("영화리뷰 게시판");
     }
+
+    @Test
+    void findCountByNo() {
+        Integer count = boardMapper.findCountByNo(1);
+        Assertions.assertThat(count).isEqualTo(1);
+    }
 }

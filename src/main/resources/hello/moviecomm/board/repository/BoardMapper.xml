@@ -14,4 +14,10 @@
         FROM board
         ORDER BY board_no
     </select>
+    <select id="findCountByNo">
+        SELECT
+            count(*)
+        FROM post
+        WHERE board_no = #{boardNo}
+    </select>
 </mapper>
