@@ -25,6 +25,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Slf4j
 @Controller
@@ -39,18 +41,28 @@ public class BoardController {
 
 
     @GetMapping("/{boardNo}")
-    public String list(@PathVariable("boardNo") Integer boardNo, Model model) {
+    public String list(@PathVariable("boardNo") Integer boardNo,
+                       Model model,
+                       @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo) {
+
         List<Board> boards = boardService.findAllBoard();
         //  boards의 boardNo 중에 boardNo가 있는지 확인
         boolean isExist = boards.stream().anyMatch(board -> board.getBoardNo().equals(boardNo));
         if (!isExist) {
             throw new NotFoundException("게시판 번호 " + boardNo +" 게시판이 존재하지 않습니다.");
         }
+
+        Integer pagesResult = boardService.getPages(boardNo, 10);
+        List<Integer> pages = IntStream.rangeClosed(1, pagesResult).boxed().collect(Collectors.toList());
+
+
         String boardName = boardService.findBoardNameByNo(boardNo);
         List<PostListDto> postList = postService.findAll(boardNo);
         model.addAttribute("boardNo", boardNo);
         model.addAttribute("boardName", boardName);
         model.addAttribute("postList", postList);
+        model.addAttribute("pages", pages);
+        model.addAttribute("currentPageNo", pageNo);
         return "board/list";
     }
 
