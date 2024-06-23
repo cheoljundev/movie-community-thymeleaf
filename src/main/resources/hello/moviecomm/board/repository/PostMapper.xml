@@ -53,4 +53,14 @@
             store_file_name = #{updatedPost.storeFileName, jdbcType=VARCHAR}
         where post_no = #{postNo}
     </update>
+    <select id="findRange" resultType="hello.moviecomm.board.domain.Post">
+        SELECT *
+        FROM (
+                 SELECT post_no, title, content, create_at, file_name, store_file_name, member_no, board_no,
+                        ROW_NUMBER() OVER (ORDER BY post_no DESC) AS rnum
+                 FROM post
+                 WHERE board_no = #{boardNo}
+             )
+        WHERE rnum BETWEEN #{start} AND #{end}
+    </select>
 </mapper>

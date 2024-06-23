@@ -64,4 +64,15 @@ class PostMapperTest {
         Assertions.assertThat(post.getFileName()).isNull();
         Assertions.assertThat(post.getStoreFileName()).isNull();
     }
+
+    @Test
+    void findRange() {
+        List<Post> list = postMapper.findRange(1, 11, 20);
+        int size = list.size(); // 0개, 실제로 모든 게시글은 100개임
+        Post postStart = list.get(0);
+        Post postEnd = list.get(9);
+        Assertions.assertThat(size).isEqualTo(10);
+        Assertions.assertThat(postStart.getTitle()).isEqualTo("테스트글 90");
+        Assertions.assertThat(postEnd.getTitle()).isEqualTo("테스트글 81");
+    }
 }

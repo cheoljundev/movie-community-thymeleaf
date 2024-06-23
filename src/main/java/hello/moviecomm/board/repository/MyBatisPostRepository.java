@@ -41,6 +41,22 @@ public class MyBatisPostRepository implements PostRepository{
     }
 
     @Override
+    public List<PostListDto> findRange(Integer boardNo, Integer start, Integer end) {
+        List<Post> dbListPostDtoList = postMapper.findRange(boardNo, start, end);
+        List<PostListDto> listPostDtoList = new ArrayList<>();
+        dbListPostDtoList.stream().forEach(dbListPostDto -> {
+            Integer memberNo = dbListPostDto.getMemberNo();
+            listPostDtoList.add(PostListDto.builder()
+                    .postNo(dbListPostDto.getPostNo())
+                    .title(dbListPostDto.getTitle())
+                    .memberName(memberService.findByNo(memberNo).getName())
+                    .createAt(dbListPostDto.getCreateAt())
+                    .build());
+        });
+        return listPostDtoList;
+    }
+
+    @Override
     public void remove(Integer postNo) {
         postMapper.remove(postNo);
     }

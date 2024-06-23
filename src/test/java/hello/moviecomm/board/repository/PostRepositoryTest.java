@@ -64,4 +64,15 @@ class PostRepositoryTest {
         Assertions.assertThat(post.getFileName()).isNull();
         Assertions.assertThat(post.getStoreFileName()).isNull();
     }
+
+    @Test
+    void findRange() {
+        List<PostListDto> list = postRepository.findRange(1, 1, 10);
+        int size = list.size();
+        PostListDto postStart = list.get(0);
+        PostListDto postEnd = list.get(9);
+        Assertions.assertThat(size).isEqualTo(10);
+        Assertions.assertThat(postStart.getTitle()).isEqualTo("테스트글 100");
+        Assertions.assertThat(postEnd.getTitle()).isEqualTo("테스트글 91");
+    }
 }

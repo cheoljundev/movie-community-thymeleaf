@@ -47,6 +47,12 @@ public class PostService {
         return postRepository.findAll(boardNo);
     }
 
+    public List<PostListDto> findPosts(Integer boardNo, Integer pageNo, Integer maxPostView) {
+        int start = (pageNo - 1) * maxPostView;
+        int end = pageNo * maxPostView;
+        return postRepository.findRange(boardNo, start, end);
+    }
+
     public void remove(Integer postNo, CustomUserDetails customUserDetails) {
 
         if (isLogin(customUserDetails)) {

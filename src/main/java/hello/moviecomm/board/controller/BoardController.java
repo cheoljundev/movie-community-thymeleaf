@@ -57,10 +57,10 @@ public class BoardController {
 
 
         String boardName = boardService.findBoardNameByNo(boardNo);
-        List<PostListDto> postList = postService.findAll(boardNo);
+        List<PostListDto> posts = postService.findPosts(boardNo, pageNo, 10);
         model.addAttribute("boardNo", boardNo);
         model.addAttribute("boardName", boardName);
-        model.addAttribute("postList", postList);
+        model.addAttribute("posts", posts);
         model.addAttribute("pages", pages);
         model.addAttribute("currentPageNo", pageNo);
         return "board/list";
