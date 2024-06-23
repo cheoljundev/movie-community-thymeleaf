@@ -58,10 +58,27 @@ public class BoardController {
 
         String boardName = boardService.findBoardNameByNo(boardNo);
         List<PostListDto> posts = postService.findPosts(boardNo, pageNo, 10);
+
+        int minPage = boardService.minPageLimit(pageNo);
+        int maxPage = boardService.maxPageLimit(boardNo, minPage, 10);
+        int prevPage = minPage - 1;
+        int nextPage = maxPage + 1;
+        boolean hasPrev = prevPage > 1;
+        boolean hasNext = nextPage <= pagesResult;
+
+        List<Integer> pagination = IntStream.rangeClosed(minPage, maxPage).boxed().collect(Collectors.toList());
+
         model.addAttribute("boardNo", boardNo);
         model.addAttribute("boardName", boardName);
         model.addAttribute("posts", posts);
         model.addAttribute("pages", pages);
+        model.addAttribute("minPage", minPage);
+        model.addAttribute("maxPage", maxPage);
+        model.addAttribute("prevPage", prevPage);
+        model.addAttribute("nextPage", nextPage);
+        model.addAttribute("hasPrev", hasPrev);
+        model.addAttribute("hasNext", hasNext);
+        model.addAttribute("pagination", pagination);
         model.addAttribute("currentPageNo", pageNo);
         return "board/list";
     }

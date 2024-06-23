@@ -23,4 +23,19 @@ public class BoardService {
     public Integer getPages(Integer boardNo, Integer maxPostView) {
         return boardRepository.getPages(boardNo, maxPostView);
     }
+
+    public int minPageLimit(Integer page){
+        return ((page - 1) / 10) * 10 + 1;
+    }
+
+    public int maxPageLimit(Integer boardNo, int minPageLimit, Integer maxPostView){
+        int result = minPageLimit + maxPostView - 1;
+        int pages = getPages(boardNo, maxPostView);
+
+        if (result > pages){
+            return pages;
+        }
+
+        return result;
+    }
 }

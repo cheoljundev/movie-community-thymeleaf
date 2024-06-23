@@ -76,18 +76,24 @@
         </div>
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">이전</a>
+                <li class="page-item"
+                    th:classappend="${!hasPrev ? 'disabled' : ''}">
+                    <a class="page-link" href="/baord/1?pageNo=1"
+                          th:href="@{/board/{boardNo} (boardNo=${boardNo}, pageNo=${prevPage})}"
+                       tabindex="-1">이전</a>
                 </li>
-                <li class="page-item" th:each="page : ${pages}">
-                    <a class="page-link" href="#"
+                <li class="page-item" th:each="page : ${pagination}">
+                    <a class="page-link" href="/baord/1?pageNo=1"
                        th:href="@{/board/{boardNo} (boardNo=${boardNo}, pageNo=${page})}"
                        th:text="${page}"
                        th:classappend="${page == currentPageNo ? 'active' : ''}"
                     >1</a>
                 </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">다음</a></li>
+                <li class="page-item"
+                    th:classappend="${!hasNext ? 'disabled' : ''}">
+                    <a class="page-link" href="/baord/1?pageNo=1"
+                          th:href="@{/board/{boardNo} (boardNo=${boardNo}, pageNo=${nextPage})}"
+                    >다음</a></li>
                 </li>
             </ul>
         </nav>
