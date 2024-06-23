@@ -55,6 +55,13 @@ class PostServiceTest {
     }
 
     @Test
+    void findPosts() {
+        List<PostListDto> list = postService.findPosts(1, 1, 10);
+        int size = list.size();
+        Assertions.assertThat(size).isEqualTo(10);
+    }
+
+    @Test
     void remove_ok() {
         // given
         List<Authority> roles = new ArrayList<>();

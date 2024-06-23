@@ -32,10 +32,7 @@ public class BoardService {
         int result = minPageLimit + maxPostView - 1;
         int pages = getPages(boardNo, maxPostView);
 
-        if (result > pages){
-            return pages;
-        }
+        return Math.min(result, pages);
 
-        return result;
     }
 }
