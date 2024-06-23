@@ -31,6 +31,6 @@ class boardMapperTest {
     @Test
     void findCountByNo() {
         Integer count = boardMapper.findCountByNo(1);
-        Assertions.assertThat(count).isEqualTo(100);
+        Assertions.assertThat(count).isEqualTo(200);
     }
 }

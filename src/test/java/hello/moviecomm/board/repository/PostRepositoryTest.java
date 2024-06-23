@@ -39,7 +39,7 @@ class PostRepositoryTest {
     void findAll() {
         List<PostListDto> list = postRepository.findAll(1);
         int size = list.size();
-        Assertions.assertThat(size).isEqualTo(100);
+        Assertions.assertThat(size).isEqualTo(200);
     }
 
     @Test
@@ -72,7 +72,7 @@ class PostRepositoryTest {
         PostListDto postStart = list.get(0);
         PostListDto postEnd = list.get(9);
         Assertions.assertThat(size).isEqualTo(10);
-        Assertions.assertThat(postStart.getTitle()).isEqualTo("테스트글 100");
-        Assertions.assertThat(postEnd.getTitle()).isEqualTo("테스트글 91");
+        Assertions.assertThat(postStart.getTitle()).isEqualTo("테스트글 200");
+        Assertions.assertThat(postEnd.getTitle()).isEqualTo("테스트글 191");
     }
 }

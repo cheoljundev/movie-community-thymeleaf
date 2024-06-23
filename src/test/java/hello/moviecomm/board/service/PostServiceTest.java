@@ -51,7 +51,7 @@ class PostServiceTest {
     void findAll() {
         List<PostListDto> list = postService.findAll(1);
         int size = list.size();
-        Assertions.assertThat(list.size()).isEqualTo(100);
+        Assertions.assertThat(list.size()).isEqualTo(200);
     }
 
     @Test

@@ -39,7 +39,7 @@ class PostMapperTest {
     void findAll() {
         List<Post> list = postMapper.findAll(1);
         int size = list.size();
-        Assertions.assertThat(size).isEqualTo(100);
+        Assertions.assertThat(size).isEqualTo(200);
     }
 
     @Test
@@ -72,7 +72,7 @@ class PostMapperTest {
         Post postStart = list.get(0);
         Post postEnd = list.get(9);
         Assertions.assertThat(size).isEqualTo(10);
-        Assertions.assertThat(postStart.getTitle()).isEqualTo("테스트글 90");
-        Assertions.assertThat(postEnd.getTitle()).isEqualTo("테스트글 81");
+        Assertions.assertThat(postStart.getTitle()).isEqualTo("테스트글 190");
+        Assertions.assertThat(postEnd.getTitle()).isEqualTo("테스트글 181");
     }
 }

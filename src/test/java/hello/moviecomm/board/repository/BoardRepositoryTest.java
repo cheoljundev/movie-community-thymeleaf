@@ -32,6 +32,6 @@ class BoardRepositoryTest {
     @Test
     void getPages() {
         Integer pages = boardRepository.getPages(1, 10);
-        Assertions.assertThat(pages).isEqualTo(10);
+        Assertions.assertThat(pages).isEqualTo(20);
     }
 }

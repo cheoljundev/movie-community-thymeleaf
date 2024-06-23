@@ -30,7 +30,7 @@ class BoardServiceTest {
     @Test
     void getPages() {
         Integer pages = boardService.getPages(1, 10);
-        Assertions.assertThat(pages).isEqualTo(10);
+        Assertions.assertThat(pages).isEqualTo(20);
     }
 
     @Test
